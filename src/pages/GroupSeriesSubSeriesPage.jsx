@@ -20,6 +20,7 @@ import axios from "../axios";
 const { Option } = Select;
 
 const GroupSeriesSubSeriesPage = () => {
+  console.log(import.meta.env.VITE_URL);
   // for edit
   const [groupDataForEdit, setGroupDataForEdit] = useState();
   const [seriesDataForEdit, setSeriesDataForEdit] = useState();
@@ -387,25 +388,31 @@ const GroupSeriesSubSeriesPage = () => {
   };
 
   // Search and pagination logic
-  const filteredGroups = groups.filter((group) =>
-    group.name.toLowerCase().includes(groupSearch.toLowerCase())
-  );
+  const filteredGroups = groups
+    ? groups.filter((group) =>
+        group.name.toLowerCase().includes(groupSearch.toLowerCase())
+      )
+    : [];
   const paginatedGroups = filteredGroups.slice(
     (groupPage - 1) * groupPageSize,
     groupPage * groupPageSize
   );
 
-  const filteredSeries = series.filter((ser) =>
-    ser.name.toLowerCase().includes(seriesSearch.toLowerCase())
-  );
+  const filteredSeries = series
+    ? series.filter((ser) =>
+        ser.name.toLowerCase().includes(seriesSearch.toLowerCase())
+      )
+    : [];
   const paginatedSeries = filteredSeries.slice(
     (seriesPage - 1) * seriesPageSize,
     seriesPage * seriesPageSize
   );
 
-  const filteredSubSeries = subSeries.filter((subSer) =>
-    subSer.name.toLowerCase().includes(subSeriesSearch.toLowerCase())
-  );
+  const filteredSubSeries = subSeries
+    ? subSeries.filter((subSer) =>
+        subSer.name.toLowerCase().includes(subSeriesSearch.toLowerCase())
+      )
+    : [];
   const paginatedSubSeries = filteredSubSeries.slice(
     (subSeriesPage - 1) * subSeriesPageSize,
     subSeriesPage * subSeriesPageSize
