@@ -32,11 +32,12 @@ const ProductContextProvider = ({ children }) => {
       if (response.status === 201) {
         setProducts([...products, response.data]);
         notification.success({ message: "Product created successfully!" });
-        setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
       notification.error({ message: "Failed to create product" });
+    } finally {
+      setLoading(false);
     }
   };
 
