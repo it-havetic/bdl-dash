@@ -5,11 +5,13 @@ import {
   Form,
   Input,
   InputNumber,
+  message,
   Select,
   Upload,
-  message,
 } from "antd";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "../axios";
+import { SpecificationContext } from "../context/SpecificationContext";
 
 const { Option } = Select;
 
@@ -40,11 +42,48 @@ const cctOptions = [
 ];
 
 const SpecificationForm = () => {
+  const { createSpecification, loading } = useContext(SpecificationContext);
+
+  const [groups, setGroups] = useState([]);
+  const [series, setSeries] = useState([]);
+  const [subSeries, setSubSeries] = useState([]);
+
   const [imagesForView, setImagesForView] = useState([]);
+  const [videosForView, setVideosForView] = useState([]);
   const [productImage, setProductImage] = useState();
+  const [productVideo, setProductVideo] = useState();
   const [form] = Form.useForm();
 
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchGroups();
+  }, []);
+
+  const fetchGroups = async () => {
+    try {
+      const response = await axios.get("/groups");
+      setGroups(response.data);
+    } catch (error) {
+      message.error("Failed to fetch groups");
+    }
+  };
+
+  const fetchSeries = async (groupId) => {
+    try {
+      const response = await axios.get(`/series/group/${groupId}`);
+      setSeries(response.data);
+    } catch (error) {
+      message.error("Failed to fetch series");
+    }
+  };
+
+  const fetchSubSeries = async (seriesId) => {
+    try {
+      const response = await axios.get(`/sub-series/series/${seriesId}`);
+      setSubSeries(response.data);
+    } catch (error) {
+      message.error("Failed to fetch subseries");
+    }
+  };
 
   const handleImageChange = (fileList) => {
     if (fileList.length > 0) {
@@ -52,18 +91,61 @@ const SpecificationForm = () => {
       setImagesForView([image]);
       setProductImage(fileList[0].originFileObj); // Only keep one image
     } else {
-      setProductImage([]);
+      setProductImage();
       setImagesForView([]);
+    }
+  };
+  const handleVideoChange = (fileList) => {
+    if (fileList.length > 0) {
+      const video = URL.createObjectURL(fileList[0].originFileObj);
+      setVideosForView([video]);
+      setProductVideo(fileList[0].originFileObj); // Only keep one image
+    } else {
+      setProductVideo();
+      setVideosForView([]);
     }
   };
 
   const onFinish = async (values) => {
     console.log(values);
-    message.success("Form submitted successfully!");
+    const formData = new FormData();
+    formData.append("group", values.group);
+    formData.append("series", values.series);
+    formData.append("subSeries", values.subSeries);
+    formData.append("priority", values.priority);
+
+    formData.append("watts", values.watts);
+    formData.append("lumens", values.lumens);
+    formData.append("beamAngle", values.beamAngle);
+    formData.append("rimColor", values.rimColor);
+    formData.append("mounting_array", values.mounting_array);
+    formData.append("ipGrade", values.ipGrade);
+    formData.append("glare", values.glare);
+    formData.append("bodyColor", values.bodyColor);
+    formData.append("dimming", values.dimming);
+    formData.append("cct", values.cct);
+
+    formData.append("dimention", values.dimension);
+    formData.append("shape", values.shape);
+    formData.append("thickness", values.thickness);
+    formData.append("mounting", values.mounting);
+    formData.append("finish", values.finish);
+    formData.append("capacity", values.capacity);
+
+    formData.append("image", productImage);
+    formData.append("video", productVideo);
+    createSpecification(formData);
+    form.resetFields();
+    setProductImage();
+    setProductVideo();
+    setImagesForView([]);
+    setVideosForView([]);
   };
 
   return (
     <Form
+      form={form}
+      name="specification"
       layout="vertical"
       onFinish={onFinish}
       className="space-y-8 p-8 bg-gray-50 rounded-lg shadow-lg text-xl"
@@ -76,11 +158,16 @@ const SpecificationForm = () => {
           className="w-full"
         >
           <Select
+            onChange={(value) => fetchSeries(value)}
             placeholder="Select Group"
             size="large"
             className="text-gray-700 border border-blue-300 rounded-md"
           >
-            <Option value="group1">Group 1</Option>
+            {groups.map((group) => (
+              <Option key={group._id} value={group._id}>
+                {group.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 
@@ -92,11 +179,16 @@ const SpecificationForm = () => {
           className="w-full"
         >
           <Select
+            onChange={(value) => fetchSubSeries(value)}
             placeholder="Select Series"
             size="large"
             className="text-gray-700 border border-blue-300 rounded-md"
           >
-            <Option value="series1">Series 1</Option>
+            {series.map((series) => (
+              <Option key={series._id} value={series._id}>
+                {series.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 
@@ -112,7 +204,11 @@ const SpecificationForm = () => {
             size="large"
             className="text-gray-700 border border-blue-300 rounded-md"
           >
-            <Option value="subseries1">SubSeries 1</Option>
+            {subSeries.map((subSeries) => (
+              <Option key={subSeries._id} value={subSeries._id}>
+                {subSeries.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 
@@ -124,6 +220,7 @@ const SpecificationForm = () => {
           className="w-full"
         >
           <InputNumber
+            type="number"
             min={1}
             className="w-full border border-blue-300 rounded-md"
             size="large"
@@ -179,7 +276,7 @@ const SpecificationForm = () => {
           label={
             <span className="text-blue-600 font-bold text-lg">Mounting</span>
           }
-          name="mounting"
+          name="mounting_array"
         >
           <Checkbox.Group
             options={mountingOptions}
@@ -337,7 +434,7 @@ const SpecificationForm = () => {
         {/* Image Upload */}
         <div className="w-1/2">
           {imagesForView.length > 0 && (
-            <div className="mt-3 w-[400px] aspect-square overflow-hidden">
+            <div className="mt-3 w-[400px] aspect-square overflow-hidden flex justify-center items-center">
               <img
                 src={imagesForView[0]}
                 alt="Product Image"
@@ -376,33 +473,55 @@ const SpecificationForm = () => {
         </div>
 
         {/* Video Upload */}
-        <div className="w-1/2">
-          <Form.Item
-            label={
-              <span className="text-blue-600 font-bold text-lg">
-                Video Upload
-              </span>
-            }
-            name="videoUpload"
-          >
-            <Upload
+        <div className="flex justify-center items-center">
+          <div className="w-1/2">
+            {videosForView.length > 0 && (
+              <div className="mt-3 w-[400px] aspect-square flex justify-center items-center overflow-hidden">
+                <video
+                  controls
+                  src={videosForView[0]}
+                  alt="Product Image"
+                  className="w-full object-cover"
+                  autoPlay={false}
+                />
+              </div>
+            )}
+            <Form.Item
+              label={
+                <span className="text-blue-600 font-bold text-lg">
+                  Video Upload
+                </span>
+              }
               name="video"
-              showUploadList={false}
-              beforeUpload={() => false}
-              accept="video/*"
             >
-              <Button icon={<UploadOutlined />} loading={loading}>
-                Upload Video
-              </Button>
-            </Upload>
-          </Form.Item>
+              <Upload
+                name="video"
+                accept="video/*"
+                fileList={videosForView.map((img) => ({
+                  name: img.split("/").pop(),
+                }))}
+                onChange={({ fileList }) => handleVideoChange(fileList)}
+                beforeUpload={() => false} // Prevent automatic upload
+              >
+                {videosForView.length < 1 && (
+                  <Button
+                    type="dashed"
+                    className="w-[340px] text-black font-mono text-[17px]"
+                    icon={<UploadOutlined />}
+                  >
+                    Upload Tutorial Video
+                  </Button>
+                )}
+              </Upload>
+            </Form.Item>
+          </div>
         </div>
       </div>
 
       {/* Submit Button */}
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          Submit
+        <Button size="large" type="primary" htmlType="submit" loading={loading}>
+          Create Specification
         </Button>
       </Form.Item>
     </Form>

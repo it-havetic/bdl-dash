@@ -11,6 +11,7 @@ import Products from "./pages/Products";
 
 import AuthContextProvider from "./context/AuthContext";
 import ProductContextProvider from "./context/ProductContext";
+import SpecificationContextProvider from "./context/SpecificationContext";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
 import Login from "./pages/Login";
 import Specification from "./pages/Specification";
@@ -38,7 +39,14 @@ function App() {
                 </ProductContextProvider>
               }
             />
-            <Route path="/specifications" element={<Specification />} />
+            <Route
+              path="/specifications"
+              element={
+                <SpecificationContextProvider>
+                  <Specification />
+                </SpecificationContextProvider>
+              }
+            />
             <Route path="/mockup-zone" element={<MockupZone />} />
             <Route path="/recent-work" element={<RecentWork />} />
             <Route path="/greeting" element={<Greeting />} />
