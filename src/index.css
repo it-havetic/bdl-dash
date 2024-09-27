@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-upload-image {
+  height: 150px;
+  width: 150px;
+  object-fit: cover; /* Optional: maintain aspect ratio */
+}
+/* Custom styles for Ant Design checkboxes */
+
+.ant-checkbox-wrapper {
+  font-size: 1.1rem; /* Adjust label size */
+}
