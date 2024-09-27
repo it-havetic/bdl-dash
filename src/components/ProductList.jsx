@@ -35,7 +35,7 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+  }, [products]);
 
   const fetchGroups = async () => {
     try {

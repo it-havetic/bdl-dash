@@ -5,7 +5,7 @@ import axios from "../axios";
 import { ProductContext } from "../context/ProductContext";
 
 const ProductForm = () => {
-  const { createProduct } = useContext(ProductContext);
+  const { createProduct, loading } = useContext(ProductContext);
   const [form] = Form.useForm();
 
   const [productImage, setProductImage] = useState();
@@ -177,7 +177,12 @@ const ProductForm = () => {
             </Upload>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button
+              loading={loading}
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+            >
               Add Product
             </Button>
           </Form.Item>

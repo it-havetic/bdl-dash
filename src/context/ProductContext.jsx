@@ -7,6 +7,7 @@ export const ProductContext = createContext();
 
 const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -25,11 +26,13 @@ const ProductContextProvider = ({ children }) => {
   };
 
   const createProduct = async (data) => {
+    setLoading(true);
     try {
       const response = await axios.post("/products", data);
       if (response.status === 201) {
         setProducts([...products, response.data]);
         notification.success({ message: "Product created successfully!" });
+        setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
@@ -73,6 +76,7 @@ const ProductContextProvider = ({ children }) => {
         deleteProduct,
         updateProduct,
         createProduct,
+        loading,
       }}
     >
       {children}
