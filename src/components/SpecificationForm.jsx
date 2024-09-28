@@ -317,7 +317,7 @@ const SpecificationForm = () => {
           label={
             <span className="text-blue-600 font-bold text-lg">IP Grade</span>
           }
-          name="ipGrade"
+          name="ip"
         >
           <Checkbox.Group
             options={ipGradeOptions}

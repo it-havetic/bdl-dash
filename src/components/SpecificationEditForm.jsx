@@ -1,14 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-  Upload,
-} from "antd";
+import { Button, Checkbox, Form, Input, message, Select, Upload } from "antd";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { SpecificationContext } from "../context/SpecificationContext";
@@ -145,7 +136,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     if (values.ip) {
       values.ip.forEach((ip) => formData.append("ip[]", ip));
     }
-    if (values.ipGrade) {
+    if (values.glare) {
       values.glare.forEach((glareValue) =>
         formData.append("glare[]", glareValue)
       );
@@ -264,9 +255,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
         </Form.Item>
 
         <Form.Item
-          label={
-            <span className="text-blue-600 font-bold text-lg">note</span>
-          }
+          label={<span className="text-blue-600 font-bold text-lg">note</span>}
           name="note"
           className="w-full"
         >
