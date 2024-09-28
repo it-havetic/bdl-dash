@@ -13,9 +13,9 @@ const SpecificationContextProvider = ({ children }) => {
     getSpecification();
   }, []);
 
-  const getSpecification = () => {
+  const getSpecification = async () => {
     try {
-      const response = axios.get(`/specifications`);
+      const response = await axios.get(`/specifications`);
       if (response.status === 200) {
         setSpecifications(response.data);
       }
@@ -27,6 +27,8 @@ const SpecificationContextProvider = ({ children }) => {
 
   const createSpecification = async (data) => {
     setLoading(true);
+    const a = await data;
+    console.log(a);
     try {
       const response = await axios.post(`/specifications`, data);
       if (response.status === 201) {

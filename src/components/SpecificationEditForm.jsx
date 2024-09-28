@@ -41,8 +41,8 @@ const cctOptions = [
   "2000K",
 ];
 
-const SpecificationForm = () => {
-  const { createSpecification, loading } = useContext(SpecificationContext);
+const SpecificationEditForm = ({ specification, handleEditCancel }) => {
+  const { updateSpecification, loading } = useContext(SpecificationContext);
 
   const [groups, setGroups] = useState([]);
   const [series, setSeries] = useState([]);
@@ -109,6 +109,16 @@ const SpecificationForm = () => {
   const onFinish = async (values) => {
     console.log(values);
     const formData = new FormData();
+
+    if (typeof values.subSeries === "object") {
+      values.subSeries = values.subSeries._id;
+    }
+    if (typeof values.series === "object") {
+      values.series = values.series._id;
+    }
+    if (typeof values.group === "object") {
+      values.group = values.group._id;
+    }
     formData.append("group", values.group);
     formData.append("series", values.series);
     formData.append("subSeries", values.subSeries);
@@ -122,7 +132,7 @@ const SpecificationForm = () => {
     values.mounting_array.forEach((mount) =>
       formData.append("mounting_array[]", mount)
     );
-    values.ipGrade.forEach((ip) => formData.append("ipGrade[]", ip));
+    values.ip.forEach((ip) => formData.append("ip[]", ip));
     values.glare.forEach((glareValue) =>
       formData.append("glare[]", glareValue)
     );
@@ -149,7 +159,7 @@ const SpecificationForm = () => {
     }
 
     // Send data to createSpecification function
-    createSpecification(formData);
+    updateSpecification(specification._id, formData);
 
     // Reset form and states
     form.resetFields();
@@ -157,11 +167,13 @@ const SpecificationForm = () => {
     setProductVideo(null); // Ensure to reset the video state correctly
     setImagesForView([]); // Reset the image preview state
     setVideosForView([]); // Reset the video preview state
+    handleEditCancel();
   };
 
   return (
     <Form
       form={form}
+      initialValues={specification}
       name="specification"
       layout="vertical"
       onFinish={onFinish}
@@ -304,7 +316,7 @@ const SpecificationForm = () => {
           label={
             <span className="text-blue-600 font-bold text-lg">IP Grade</span>
           }
-          name="ipGrade"
+          name="ip"
         >
           <Checkbox.Group
             options={ipGradeOptions}
@@ -538,11 +550,11 @@ const SpecificationForm = () => {
       {/* Submit Button */}
       <Form.Item>
         <Button size="large" type="primary" htmlType="submit" loading={loading}>
-          Create Specification
+          Update Specification
         </Button>
       </Form.Item>
     </Form>
   );
 };
 
-export default SpecificationForm;
+export default SpecificationEditForm;
