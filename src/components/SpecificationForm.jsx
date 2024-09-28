@@ -1,14 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-  Upload,
-} from "antd";
+import { Button, Checkbox, Form, Input, message, Select, Upload } from "antd";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { SpecificationContext } from "../context/SpecificationContext";
@@ -112,28 +103,52 @@ const SpecificationForm = () => {
     formData.append("group", values.group);
     formData.append("series", values.series);
     formData.append("subSeries", values.subSeries);
-    formData.append("priority", values.priority);
+    formData.append("note", values.note);
 
     // Handle arrays by looping through each one
-    values.watts.forEach((watt) => formData.append("watts[]", watt));
-    values.lumens.forEach((lumen) => formData.append("lumens[]", lumen));
-    values.beamAngle.forEach((angle) => formData.append("beamAngle[]", angle));
-    values.rimColor.forEach((color) => formData.append("rimColor[]", color));
-    values.mounting_array.forEach((mount) =>
-      formData.append("mounting_array[]", mount)
-    );
-    values.ipGrade.forEach((ip) => formData.append("ipGrade[]", ip));
-    values.glare.forEach((glareValue) =>
-      formData.append("glare[]", glareValue)
-    );
-    values.bodyColor.forEach((color) => formData.append("bodyColor[]", color));
-    values.dimming.forEach((dimValue) =>
-      formData.append("dimming[]", dimValue)
-    );
-    values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
-
+    if (values.watts) {
+      values.watts.forEach((watt) => formData.append("watts[]", watt));
+    }
+    if (values.lumens) {
+      values.lumens.forEach((lumen) => formData.append("lumens[]", lumen));
+    }
+    if (values.beamAngle) {
+      values.beamAngle.forEach((angle) =>
+        formData.append("beamAngle[]", angle)
+      );
+    }
+    if (values.rimColor) {
+      values.rimColor.forEach((color) => formData.append("rimColor[]", color));
+    }
+    if (values.mounting_array) {
+      values.mounting_array.forEach((mount) =>
+        formData.append("mounting_array[]", mount)
+      );
+    }
+    if (values.ip) {
+      values.ip.forEach((ip) => formData.append("ip[]", ip));
+    }
+    if (values.glare) {
+      values.glare.forEach((glareValue) =>
+        formData.append("glare[]", glareValue)
+      );
+    }
+    if (values.bodyColor) {
+      values.bodyColor.forEach((color) =>
+        formData.append("bodyColor[]", color)
+      );
+    }
+    if (values.dimming) {
+      values.dimming.forEach((dimValue) =>
+        formData.append("dimming[]", dimValue)
+      );
+    }
+    if (values.cct) {
+      values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
+    }
     // Append other values
-    formData.append("dimension", values.dimension);
+    formData.append("dimention", values.dimention);
+    formData.append("customization", values.customization);
     formData.append("shape", values.shape);
     formData.append("thickness", values.thickness);
     formData.append("mounting", values.mounting);
@@ -167,7 +182,7 @@ const SpecificationForm = () => {
       onFinish={onFinish}
       className="space-y-8 p-8 bg-gray-50 rounded-lg shadow-lg text-xl"
     >
-      {/* Group, Series, SubSeries, Priority */}
+      {/* Group, Series, SubSeries, note */}
       <div className="grid grid-cols-4 gap-6">
         <Form.Item
           label={<span className="text-blue-600 font-bold text-lg">Group</span>}
@@ -230,15 +245,13 @@ const SpecificationForm = () => {
         </Form.Item>
 
         <Form.Item
-          label={
-            <span className="text-blue-600 font-bold text-lg">Priority</span>
-          }
-          name="priority"
+          label={<span className="text-blue-600 font-bold text-lg">note</span>}
+          name="note"
           className="w-full"
         >
-          <InputNumber
-            type="number"
-            min={1}
+          <Input
+            placeholder="Enter note"
+            type="text"
             className="w-full border border-blue-300 rounded-md"
             size="large"
           />
@@ -359,9 +372,10 @@ const SpecificationForm = () => {
           label={
             <span className="text-blue-600 font-bold text-lg">Dimension</span>
           }
-          name="dimension"
+          name="dimention"
         >
           <Input
+            name="dimention"
             placeholder="Enter Dimension"
             size="large"
             className="border border-blue-300 rounded-md text-gray-700"
@@ -396,7 +410,7 @@ const SpecificationForm = () => {
           label={
             <span className="text-blue-600 font-bold text-lg">Mounting</span>
           }
-          name="mountingType"
+          name="mounting"
         >
           <Input
             placeholder="Enter Mounting"
@@ -427,6 +441,7 @@ const SpecificationForm = () => {
           name="customization"
         >
           <Input
+            name="customization"
             placeholder="Enter Customization"
             size="large"
             className="border border-blue-300 rounded-md text-gray-700"

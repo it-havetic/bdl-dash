@@ -122,33 +122,55 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     formData.append("group", values.group);
     formData.append("series", values.series);
     formData.append("subSeries", values.subSeries);
-    formData.append("priority", values.priority);
+    formData.append("note", values.note);
 
     // Handle arrays by looping through each one
-    values.watts.forEach((watt) => formData.append("watts[]", watt));
-    values.lumens.forEach((lumen) => formData.append("lumens[]", lumen));
-    values.beamAngle.forEach((angle) => formData.append("beamAngle[]", angle));
-    values.rimColor.forEach((color) => formData.append("rimColor[]", color));
-    values.mounting_array.forEach((mount) =>
-      formData.append("mounting_array[]", mount)
-    );
-    values.ip.forEach((ip) => formData.append("ip[]", ip));
-    values.glare.forEach((glareValue) =>
-      formData.append("glare[]", glareValue)
-    );
-    values.bodyColor.forEach((color) => formData.append("bodyColor[]", color));
-    values.dimming.forEach((dimValue) =>
-      formData.append("dimming[]", dimValue)
-    );
-    values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
-
+    if (values.watts) {
+      values.watts.forEach((watt) => formData.append("watts[]", watt));
+    }
+    if (values.lumens) {
+      values.lumens.forEach((lumen) => formData.append("lumens[]", lumen));
+    }
+    if (values.beamAngle) {
+      values.beamAngle.forEach((angle) =>
+        formData.append("beamAngle[]", angle)
+      );
+    }
+    if (values.rimColor) {
+      values.rimColor.forEach((color) => formData.append("rimColor[]", color));
+      values.mounting_array.forEach((mount) =>
+        formData.append("mounting_array[]", mount)
+      );
+    }
+    if (values.ip) {
+      values.ip.forEach((ip) => formData.append("ip[]", ip));
+    }
+    if (values.ipGrade) {
+      values.glare.forEach((glareValue) =>
+        formData.append("glare[]", glareValue)
+      );
+    }
+    if (values.bodyColor) {
+      values.bodyColor.forEach((color) =>
+        formData.append("bodyColor[]", color)
+      );
+    }
+    if (values.dimming) {
+      values.dimming.forEach((dimValue) =>
+        formData.append("dimming[]", dimValue)
+      );
+    }
+    if (values.cct) {
+      values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
+    }
     // Append other values
-    formData.append("dimension", values.dimension);
+    formData.append("dimention", values.dimention);
     formData.append("shape", values.shape);
     formData.append("thickness", values.thickness);
     formData.append("mounting", values.mounting);
     formData.append("finish", values.finish);
     formData.append("capacity", values.capacity);
+    formData.append("customization", values.customization);
 
     // Append files
     if (productImage) {
@@ -179,7 +201,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       onFinish={onFinish}
       className="space-y-8 p-8 bg-gray-50 rounded-lg shadow-lg text-xl"
     >
-      {/* Group, Series, SubSeries, Priority */}
+      {/* Group, Series, SubSeries, note */}
       <div className="grid grid-cols-4 gap-6">
         <Form.Item
           label={<span className="text-blue-600 font-bold text-lg">Group</span>}
@@ -243,14 +265,13 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
 
         <Form.Item
           label={
-            <span className="text-blue-600 font-bold text-lg">Priority</span>
+            <span className="text-blue-600 font-bold text-lg">note</span>
           }
-          name="priority"
+          name="note"
           className="w-full"
         >
-          <InputNumber
-            type="number"
-            min={1}
+          <Input
+            type="text"
             className="w-full border border-blue-300 rounded-md"
             size="large"
           />
@@ -369,12 +390,13 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       <div className="grid grid-cols-7 gap-6">
         <Form.Item
           label={
-            <span className="text-blue-600 font-bold text-lg">Dimension</span>
+            <span className="text-blue-600 font-bold text-lg">Dimention</span>
           }
-          name="dimension"
+          name="dimention"
         >
           <Input
             placeholder="Enter Dimension"
+            name="dimention"
             size="large"
             className="border border-blue-300 rounded-md text-gray-700"
           />
@@ -408,7 +430,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
           label={
             <span className="text-blue-600 font-bold text-lg">Mounting</span>
           }
-          name="mountingType"
+          name="mounting"
         >
           <Input
             placeholder="Enter Mounting"

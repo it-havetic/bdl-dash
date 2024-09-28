@@ -68,12 +68,12 @@ const SpecificationList = () => {
       key: "subSeries",
       render: (name) => <p className="font-bold text-lg">{name}</p>,
     },
-    {
-      title: "Priority",
-      dataIndex: "priority",
-      key: "priority",
-      render: (name) => <p className="font-bold text-lg">{name}</p>,
-    },
+    // {
+    //   title: "Priority",
+    //   dataIndex: "priority",
+    //   key: "priority",
+    //   render: (name) => <p className="font-bold text-lg">{name}</p>,
+    // },
     {
       title: "Diagram",
       dataIndex: "image",
@@ -151,9 +151,7 @@ const SpecificationList = () => {
       />
       <Table
         columns={columns}
-        dataSource={filteredSpecifications.sort(
-          (a, b) => a.priority - b.priority
-        )}
+        dataSource={filteredSpecifications}
         rowKey="_id"
         pagination={{ pageSize: 10 }}
         className="bg-white shadow-md rounded-lg"
@@ -177,7 +175,6 @@ const SpecificationList = () => {
         <SpecificationEditForm
           specification={selectedSpecificationForEdit}
           handleEditCancel={handleEditCancel}
-          
         />
       </Modal>
     </div>

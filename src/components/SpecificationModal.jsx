@@ -162,6 +162,12 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
           </span>
         </Col>
         <Col span={12}>
+          <span style={{ fontSize: "18px" }}>Mounting:</span>{" "}
+          <span style={{ fontSize: "20px", fontWeight: "700" }}>
+            {specification.mounting || "N/A"}
+          </span>
+        </Col>
+        <Col span={12}>
           <span style={{ fontSize: "18px" }}>Finish:</span>{" "}
           <span style={{ fontSize: "20px", fontWeight: "700" }}>
             {specification.finish || "N/A"}
@@ -176,7 +182,7 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
         <Col span={12}>
           <span style={{ fontSize: "18px" }}>Customization:</span>{" "}
           <span style={{ fontSize: "20px", fontWeight: "700" }}>
-            {specification.Customization || "N/A"}
+            {specification.customization || "N/A"}
           </span>
         </Col>
       </Row>
