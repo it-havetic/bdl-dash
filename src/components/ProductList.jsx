@@ -176,7 +176,7 @@ const ProductList = () => {
             style={{ marginRight: 8 }}
             type="link"
             icon={<EditOutlined />}
-          ></Button>
+          >Edit</Button>
           <Popconfirm
             title="Are you sure to delete this product?"
             onConfirm={() => handleDelete(record._id)}
