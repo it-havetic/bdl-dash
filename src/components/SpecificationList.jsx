@@ -22,6 +22,7 @@ const SpecificationList = () => {
   };
 
   const handleEdit = (record) => {
+    console.log(record);
     setEditModalVisible(true);
     setSelectedSpecificationForEdit(record);
   };

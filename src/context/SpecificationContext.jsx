@@ -45,10 +45,11 @@ const SpecificationContextProvider = ({ children }) => {
     }
   };
 
-  const updateSpecification = async (id, data) => {
+  const updateSpecification = async (id, data, config) => {
+    console.log(id, data, "From Context");
     setLoading(true);
     try {
-      const response = await axios.patch(`/specifications/${id}`, data);
+      const response = await axios.patch(`/specifications/${id}`, data, config);
       if (response.status === 200) {
         getSpecification();
         notification.success({

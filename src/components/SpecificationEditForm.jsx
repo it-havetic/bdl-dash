@@ -1,15 +1,24 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message, Select, Upload } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  message,
+  Progress,
+  Select,
+  Upload,
+} from "antd";
+import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { SpecificationContext } from "../context/SpecificationContext";
-import PropTypes from "prop-types";
 
 const { Option } = Select;
 
 const wattsOptions = ["1-10W", "11-20W", "21-30W"];
 const lumensOptions = ["110lm/W", "120lm/W", "130lm/W"];
-const beamAngleOptions = ["BD", "120", "240", "360", "450", "+"];
+const beamAngleOptions = ["8D", "12D", "24D", "36D", "45D", "+"];
 const rimColorOptions = ["White", "Black", "Chrome", "Rose Gold", "+"];
 const mountingOptions = [
   "Surface",
@@ -45,6 +54,8 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
   const [productImage, setProductImage] = useState();
   const [productVideo, setProductVideo] = useState();
   const [form] = Form.useForm();
+
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     fetchGroups();
@@ -102,7 +113,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     console.log(values);
     const formData = new FormData();
 
-    if (typeof values.subSeries === "object") {
+    if (typeof values.subSeries === "object" && values.subSeries) {
       values.subSeries = values.subSeries._id;
     }
     if (typeof values.series === "object") {
@@ -113,7 +124,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     }
     formData.append("group", values.group);
     formData.append("series", values.series);
-    formData.append("subSeries", values.subSeries );
+    if (values.subSeries) formData.append("subSeries", values.subSeries);
     formData.append("note", values.note || "");
 
     // Handle arrays by looping through each one
@@ -157,7 +168,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     }
     // Append other values
     formData.append("dimention", values.dimention || "");
-    formData.append("shape", values.shape   || "");
+    formData.append("shape", values.shape || "");
     formData.append("thickness", values.thickness || "");
     formData.append("mounting", values.mounting || "");
     formData.append("finish", values.finish || "");
@@ -172,16 +183,32 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       formData.append("video", productVideo);
     }
 
+    console.log("specification", specification._id);
+
+    const congig = {
+      onUploadProgress: (progressEvent) => {
+        const { loaded, total } = progressEvent;
+        const percent = Math.floor((loaded * 100) / total);
+        setUploadProgress(percent);
+      },
+    };
+
     // Send data to createSpecification function
-    updateSpecification(specification._id, formData);
+    try {
+      await updateSpecification(specification._id, formData, congig);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      form.resetFields();
+      setProductImage();
+      setProductVideo();
+      setImagesForView([]);
+      setVideosForView([]);
+      handleEditCancel();
+      setUploadProgress(0);
+    }
 
     // Reset form and states
-    form.resetFields();
-    setProductImage(null); // Ensure to reset the image state correctly
-    setProductVideo(null); // Ensure to reset the video state correctly
-    setImagesForView([]); // Reset the image preview state
-    setVideosForView([]); // Reset the video preview state
-    handleEditCancel();
   };
 
   return (
@@ -563,7 +590,23 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
           </div>
         </div>
       </div>
-
+      <div>
+        {uploadProgress > 0 && (
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            percent={uploadProgress}
+            status="active"
+            percentPosition={{
+              align: "end",
+              type: "inner",
+            }}
+            size={["large", 20]}
+          />
+        )}
+      </div>
       {/* Submit Button */}
       <Form.Item>
         <Button size="large" type="primary" htmlType="submit" loading={loading}>
@@ -577,6 +620,6 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
 export default SpecificationEditForm;
 
 SpecificationEditForm.propTypes = {
-  specification: PropTypes.object.isRequired,
-  handleEditCancel: PropTypes.func.isRequired,
+  specification: PropTypes.object,
+  handleEditCancel: PropTypes.func,
 };

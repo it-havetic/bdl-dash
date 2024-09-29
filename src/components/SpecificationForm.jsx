@@ -17,7 +17,7 @@ const { Option } = Select;
 
 const wattsOptions = ["1-10W", "11-20W", "21-30W"];
 const lumensOptions = ["110lm/W", "120lm/W", "130lm/W"];
-const beamAngleOptions = ["BD", "120", "240", "360", "450", "+"];
+const beamAngleOptions = ["8D", "12D", "24D", "36D", "45D", "+"];
 const rimColorOptions = ["White", "Black", "Chrome", "Rose Gold", "+"];
 const mountingOptions = [
   "Surface",
@@ -113,7 +113,7 @@ const SpecificationForm = () => {
     const formData = new FormData();
     formData.append("group", values.group);
     formData.append("series", values.series);
-    if(values.subSeries) formData.append("subSeries", values.subSeries);
+    if (values.subSeries) formData.append("subSeries", values.subSeries);
     formData.append("note", values.note || "");
 
     // Handle arrays by looping through each one
@@ -158,13 +158,13 @@ const SpecificationForm = () => {
       values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
     }
     // Append other values
-    formData.append("dimention", values.dimention ||"");
-    formData.append("customization", values.customization ||"");
-    formData.append("shape", values.shape ||"");
-    formData.append("thickness", values.thickness ||"");
-    formData.append("mounting", values.mounting ||"");
-    formData.append("finish", values.finish ||"");
-    formData.append("capacity", values.capacity ||"");
+    formData.append("dimention", values.dimention || "");
+    formData.append("customization", values.customization || "");
+    formData.append("shape", values.shape || "");
+    formData.append("thickness", values.thickness || "");
+    formData.append("mounting", values.mounting || "");
+    formData.append("finish", values.finish || "");
+    formData.append("capacity", values.capacity || "");
 
     // Append files
     if (productImage) {
@@ -186,7 +186,7 @@ const SpecificationForm = () => {
     try {
       await createSpecification(formData, config);
     } catch (error) {
-      message.error("Failed to create specification");
+      message.error(error.message);
     } finally {
       // Reset form and states
       form.resetFields();
