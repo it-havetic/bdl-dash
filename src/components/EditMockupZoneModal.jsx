@@ -265,7 +265,7 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
             size={["large", 20]}
           />
         )}
-        <Form.Item>
+        <Form.Item className="mt-4">
           <Button type="primary" htmlType="submit" loading={loading}>
             Update
           </Button>
