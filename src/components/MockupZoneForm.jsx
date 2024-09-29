@@ -129,6 +129,7 @@ const MockupZoneForm = () => {
           rules={[
             { required: true, message: "Please upload at least one image!" },
           ]}
+          roules={[{ required: true, message: "Please upload at least one image!" }]}
         >
           <Upload
             accept="image/*"

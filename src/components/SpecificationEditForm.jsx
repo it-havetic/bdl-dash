@@ -493,6 +493,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
               </span>
             }
             name="image"
+            rules={[{ required: true, message: "Please upload an image!" }]}
           >
             <Upload
               name="image"
@@ -537,6 +538,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
                 </span>
               }
               name="video"
+              rules={[{ required: true, message: "Please upload a video!" }]}
             >
               <Upload
                 name="video"
