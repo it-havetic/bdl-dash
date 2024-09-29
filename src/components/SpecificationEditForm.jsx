@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input, message, Select, Upload } from "antd";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { SpecificationContext } from "../context/SpecificationContext";
+import PropTypes from "prop-types";
 
 const { Option } = Select;
 
@@ -112,8 +113,8 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     }
     formData.append("group", values.group);
     formData.append("series", values.series);
-    formData.append("subSeries", values.subSeries);
-    formData.append("note", values.note);
+    formData.append("subSeries", values.subSeries );
+    formData.append("note", values.note || "");
 
     // Handle arrays by looping through each one
     if (values.watts) {
@@ -155,13 +156,13 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
     }
     // Append other values
-    formData.append("dimention", values.dimention);
-    formData.append("shape", values.shape);
-    formData.append("thickness", values.thickness);
-    formData.append("mounting", values.mounting);
-    formData.append("finish", values.finish);
-    formData.append("capacity", values.capacity);
-    formData.append("customization", values.customization);
+    formData.append("dimention", values.dimention || "");
+    formData.append("shape", values.shape   || "");
+    formData.append("thickness", values.thickness || "");
+    formData.append("mounting", values.mounting || "");
+    formData.append("finish", values.finish || "");
+    formData.append("capacity", values.capacity || "");
+    formData.append("customization", values.customization || "");
 
     // Append files
     if (productImage) {
@@ -572,3 +573,8 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
 };
 
 export default SpecificationEditForm;
+
+SpecificationEditForm.propTypes = {
+  specification: PropTypes.object.isRequired,
+  handleEditCancel: PropTypes.func.isRequired,
+};

@@ -114,7 +114,7 @@ const SpecificationForm = () => {
     formData.append("group", values.group);
     formData.append("series", values.series);
     formData.append("subSeries", values.subSeries);
-    formData.append("note", values.note);
+    formData.append("note", values.note || "");
 
     // Handle arrays by looping through each one
     if (values.watts) {
@@ -158,13 +158,13 @@ const SpecificationForm = () => {
       values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
     }
     // Append other values
-    formData.append("dimention", values.dimention);
-    formData.append("customization", values.customization);
-    formData.append("shape", values.shape);
-    formData.append("thickness", values.thickness);
-    formData.append("mounting", values.mounting);
-    formData.append("finish", values.finish);
-    formData.append("capacity", values.capacity);
+    formData.append("dimention", values.dimention ||"");
+    formData.append("customization", values.customization ||"");
+    formData.append("shape", values.shape ||"");
+    formData.append("thickness", values.thickness ||"");
+    formData.append("mounting", values.mounting ||"");
+    formData.append("finish", values.finish ||"");
+    formData.append("capacity", values.capacity ||"");
 
     // Append files
     if (productImage) {
@@ -212,6 +212,7 @@ const SpecificationForm = () => {
           label={<span className="text-blue-600 font-bold text-lg">Group</span>}
           name="group"
           className="w-full"
+          rules={[{ required: true, message: "Please select a group" }]}
         >
           <Select
             allowClear
@@ -234,6 +235,7 @@ const SpecificationForm = () => {
           }
           name="series"
           className="w-full"
+          rules={[{ required: true, message: "Please select a series" }]}
         >
           <Select
             allowClear
