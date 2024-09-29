@@ -113,7 +113,7 @@ const SpecificationForm = () => {
     const formData = new FormData();
     formData.append("group", values.group);
     formData.append("series", values.series);
-    formData.append("subSeries", values.subSeries);
+    if(values.subSeries) formData.append("subSeries", values.subSeries);
     formData.append("note", values.note || "");
 
     // Handle arrays by looping through each one

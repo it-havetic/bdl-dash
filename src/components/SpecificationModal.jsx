@@ -38,9 +38,9 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
           </span>
         </Col>
         <Col span={12}>
-          <span style={{ fontSize: "18px" }}>Priority:</span>{" "}
+          <span style={{ fontSize: "18px" }}>Note:</span>{" "}
           <span style={{ fontSize: "20px", fontWeight: "700" }}>
-            {specification.priority || "N/A"}
+            {specification.note || ""}
           </span>
         </Col>
         <Col span={12}>
