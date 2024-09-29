@@ -180,9 +180,23 @@ const MockupZoneForm = () => {
         </div>
 
         {/* Display progress bar when uploading */}
-        {uploadProgress > 0 && <Progress percent={uploadProgress} />}
+        {uploadProgress > 0 && (
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            percent={uploadProgress}
+            status="active"
+            percentPosition={{
+              align: "end",
+              type: "inner",
+            }}
+            size={["large", 20]}
+          />
+        )}
 
-        <Form.Item>
+        <Form.Item className="mt-3">
           <Button
             className="w-full"
             type="primary"

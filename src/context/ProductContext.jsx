@@ -25,10 +25,10 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const createProduct = async (data) => {
+  const createProduct = async (data, config) => {
     setLoading(true);
     try {
-      const response = await axios.post("/products", data);
+      const response = await axios.post("/products", data, config);
       if (response.status === 201) {
         setProducts([...products, response.data]);
         notification.success({ message: "Product created successfully!" });

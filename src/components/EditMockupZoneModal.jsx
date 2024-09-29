@@ -250,7 +250,21 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
           </Upload>
         </Form.Item>
 
-        {uploadProgress > 0 && <Progress percent={uploadProgress} />}
+        {uploadProgress > 0 && (
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            percent={uploadProgress}
+            status="active"
+            percentPosition={{
+              align: "end",
+              type: "inner",
+            }}
+            size={["large", 20]}
+          />
+        )}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
             Update

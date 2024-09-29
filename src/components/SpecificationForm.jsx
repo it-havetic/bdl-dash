@@ -1,5 +1,14 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message, Select, Upload } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  message,
+  Progress,
+  Select,
+  Upload,
+} from "antd";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { SpecificationContext } from "../context/SpecificationContext";
@@ -44,6 +53,8 @@ const SpecificationForm = () => {
   const [productImage, setProductImage] = useState();
   const [productVideo, setProductVideo] = useState();
   const [form] = Form.useForm();
+
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     fetchGroups();
@@ -163,15 +174,28 @@ const SpecificationForm = () => {
       formData.append("video", productVideo);
     }
 
-    // Send data to createSpecification function
-    createSpecification(formData);
+    const config = {
+      onUploadProgress: (progressEvent) => {
+        const percent = Math.floor(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setUploadProgress(percent);
+      },
+    };
 
-    // Reset form and states
-    form.resetFields();
-    setProductImage(null); // Ensure to reset the image state correctly
-    setProductVideo(null); // Ensure to reset the video state correctly
-    setImagesForView([]); // Reset the image preview state
-    setVideosForView([]); // Reset the video preview state
+    try {
+      await createSpecification(formData, config);
+    } catch (error) {
+      message.error("Failed to create specification");
+    } finally {
+      // Reset form and states
+      form.resetFields();
+      setProductImage(null); // Ensure to reset the image state correctly
+      setProductVideo(null); // Ensure to reset the video state correctly
+      setImagesForView([]); // Reset the image preview state
+      setVideosForView([]); // Reset the video preview state
+      setUploadProgress(0);
+    }
   };
 
   return (
@@ -554,6 +578,23 @@ const SpecificationForm = () => {
       </div>
 
       {/* Submit Button */}
+      <div className="flex justify-center w-80">
+        {uploadProgress > 0 && (
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            percent={uploadProgress}
+            status="active"
+            percentPosition={{
+              align: "end",
+              type: "inner",
+            }}
+            size={[300, 20]}
+          />
+        )}
+      </div>
       <Form.Item>
         <Button size="large" type="primary" htmlType="submit" loading={loading}>
           Create Specification

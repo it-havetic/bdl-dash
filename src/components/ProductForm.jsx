@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Select, Upload } from "antd";
+import { Button, Form, Input, message, Select, Upload, Progress } from "antd";
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { ProductContext } from "../context/ProductContext";
@@ -14,6 +14,8 @@ const ProductForm = () => {
   const [groups, setGroups] = useState([]);
   const [series, setSeries] = useState([]);
   const [subSeries, setSubSeries] = useState([]);
+
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     fetchGroups();
@@ -68,16 +70,50 @@ const ProductForm = () => {
     formData.append("price", values.price);
     formData.append("description", values.description);
     formData.append("image", productImage);
-    createProduct(formData);
-    form.resetFields();
-    setProductImage();
-    setImagesForView([]);
+
+    const config = {
+      /**
+       * Function to update the progress bar when uploading a product image.
+       * @param {ProgressEvent} progressEvent - The event containing the upload progress.
+       */
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setUploadProgress(percentCompleted); // Update the progress
+      },
+    };
+    try {
+      await createProduct(formData, config);
+      form.resetFields();
+      setProductImage();
+      setImagesForView([]);
+    } catch (error) {
+      message.error("Failed to create product");
+    } finally {
+      setUploadProgress(0);
+    }
   };
 
   return (
     <div className="flex p-5 bg-white rounded-lg">
       <div style={{ flex: 1, marginRight: "20px" }}>
         <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
+        {uploadProgress > 0 && (
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            percent={uploadProgress}
+            status="active"
+            percentPosition={{
+              align: "end",
+              type: "inner",
+            }}
+            size={[300, 20]}
+          />
+        )}
         <Form form={form} onFinish={onFinish} layout="vertical">
           <Form.Item
             name="itemCode"
@@ -193,6 +229,7 @@ const ProductForm = () => {
               )}
             </Upload>
           </Form.Item>
+
           <Form.Item>
             <Button
               loading={loading}

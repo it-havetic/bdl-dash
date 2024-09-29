@@ -25,12 +25,12 @@ const SpecificationContextProvider = ({ children }) => {
     }
   };
 
-  const createSpecification = async (data) => {
+  const createSpecification = async (data, config) => {
     setLoading(true);
     const a = await data;
     console.log(a);
     try {
-      const response = await axios.post(`/specifications`, data);
+      const response = await axios.post(`/specifications`, data, config);
       if (response.status === 201) {
         getSpecification();
         notification.success({
