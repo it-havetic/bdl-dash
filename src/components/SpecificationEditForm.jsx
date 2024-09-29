@@ -200,6 +200,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
           className="w-full"
         >
           <Select
+            allowClear
             onChange={(value) => fetchSeries(value)}
             placeholder="Select Group"
             size="large"
@@ -221,6 +222,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
           className="w-full"
         >
           <Select
+            allowClear
             onChange={(value) => fetchSubSeries(value)}
             placeholder="Select Series"
             size="large"
@@ -242,6 +244,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
           className="w-full"
         >
           <Select
+            allowClear
             placeholder="Select SubSeries"
             size="large"
             className="text-gray-700 border border-blue-300 rounded-md"

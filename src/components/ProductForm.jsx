@@ -92,8 +92,15 @@ const ProductForm = () => {
             rules={[{ required: true, message: "Group is required" }]}
           >
             <Select
+              allowClear
+              showSearch
               onChange={fetchSeries} // Pass the value directly to fetchSeries
               placeholder="Select group"
+              filterOption={(input, option) =>
+                (option?.children ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
             >
               {groups.map((group) => (
                 <Select.Option key={group._id} value={group._id}>
@@ -108,6 +115,7 @@ const ProductForm = () => {
             rules={[{ required: true, message: "Series is required" }]}
           >
             <Select
+              allowClear
               onChange={fetchSubSeries} // Pass the value directly to fetchSubSeries
               placeholder="Select series"
             >
@@ -120,7 +128,16 @@ const ProductForm = () => {
           </Form.Item>
 
           <Form.Item name="subSeries" label="Sub Series">
-            <Select placeholder="Select sub series">
+            <Select
+              filterOption={(input, option) =>
+                (option?.children ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              showSearch
+              allowClear
+              placeholder="Select sub series"
+            >
               {subSeries.map((subSeries) => (
                 <Select.Option key={subSeries._id} value={subSeries._id}>
                   {subSeries.name}

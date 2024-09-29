@@ -1,5 +1,5 @@
 import { Col, Divider, Modal, Row, Tag } from "antd";
-import React from "react";
+import PropTypes from "prop-types";
 
 const SpecificationModal = ({ visible, onClose, specification }) => {
   // Check if specification is available
@@ -221,3 +221,9 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
 };
 
 export default SpecificationModal;
+
+SpecificationModal.propTypes = {
+  specification: PropTypes.object.isRequired,
+  visible: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

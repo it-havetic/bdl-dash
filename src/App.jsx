@@ -4,16 +4,17 @@ import BlogSubmission from "./components/BlogSubmission";
 import Greeting from "./components/Greeting";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
-import MockupZone from "./components/MockupZone";
 import RecentWork from "./components/RecentWork";
 import Testimonium from "./components/Testimonium";
 import Products from "./pages/Products";
 
 import AuthContextProvider from "./context/AuthContext";
+import MockupZoneContextProvider from "./context/MockupZoneContex";
 import ProductContextProvider from "./context/ProductContext";
 import SpecificationContextProvider from "./context/SpecificationContext";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
 import Login from "./pages/Login";
+import MockupZone from "./pages/MockupZone";
 import Specification from "./pages/Specification";
 
 function App() {
@@ -47,7 +48,14 @@ function App() {
                 </SpecificationContextProvider>
               }
             />
-            <Route path="/mockup-zone" element={<MockupZone />} />
+            <Route
+              path="/mockup-zone"
+              element={
+                <MockupZoneContextProvider>
+                  <MockupZone />
+                </MockupZoneContextProvider>
+              }
+            />
             <Route path="/recent-work" element={<RecentWork />} />
             <Route path="/greeting" element={<Greeting />} />
             <Route path="/testimonium" element={<Testimonium />} />

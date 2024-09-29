@@ -529,7 +529,16 @@ const GroupSeriesSubSeriesPage = () => {
               label="Select Group"
               rules={[{ required: true, message: "Group is required" }]}
             >
-              <Select placeholder="Select a group">
+              <Select
+                filterOption={(input, option) =>
+                  (option?.children ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                showSearch
+                allowClear
+                placeholder="Select a group"
+              >
                 {groups.map((group) => (
                   <Option key={group._id} value={group._id}>
                     {group.name}
@@ -639,6 +648,7 @@ const GroupSeriesSubSeriesPage = () => {
               rules={[{ required: true, message: "Group is required" }]}
             >
               <Select
+                allowClear
                 placeholder="Select a group"
                 onChange={(value) => {
                   handleGroupChange(value);
@@ -656,7 +666,16 @@ const GroupSeriesSubSeriesPage = () => {
               label="Select Series"
               rules={[{ required: true, message: "Series is required" }]}
             >
-              <Select placeholder="Select a series">
+              <Select
+                filterOption={(input, option) =>
+                  (option?.children ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                showSearch
+                allowClear
+                placeholder="Select a series"
+              >
                 {seriesByGroup.map((ser) => (
                   <Option key={ser._id} value={ser._id}>
                     {ser.name}
@@ -830,7 +849,16 @@ const GroupSeriesSubSeriesPage = () => {
             </Tag>
           </span>
           <Form.Item name="group" label="Group">
-            <Select placeholder="Select a group">
+            <Select
+              filterOption={(input, option) =>
+                (option?.children ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              showSearch
+              allowClear
+              placeholder="Select a group"
+            >
               {groups.map((group) => (
                 <Option key={group._id} value={group._id}>
                   {group.name}
@@ -882,6 +910,7 @@ const GroupSeriesSubSeriesPage = () => {
         >
           <Form.Item name="group" label="Select Group">
             <Select
+              allowClear
               placeholder="Select a group"
               onChange={(value) => {
                 handleGroupChange(value);
@@ -898,7 +927,16 @@ const GroupSeriesSubSeriesPage = () => {
             {subSeriesDataForEdit?.series?.name}
           </Tag>
           <Form.Item name="series" label="Select Series">
-            <Select placeholder="Select a series">
+            <Select
+              filterOption={(input, option) =>
+                (option?.children ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              showSearch
+              allowClear
+              placeholder="Select a series"
+            >
               {seriesByGroup.map((ser) => (
                 <Option key={ser._id} value={ser._id}>
                   {ser.name}

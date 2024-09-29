@@ -225,7 +225,11 @@ const ProductList = () => {
 
                 <Tag color="blue">{formValues?.group?.name}</Tag>
                 <Form.Item name="group" label="Group">
-                  <Select onChange={fetchSeries} placeholder="Select group">
+                  <Select
+                    allowClear
+                    onChange={fetchSeries}
+                    placeholder="Select group"
+                  >
                     {groups.map((group) => (
                       <Select.Option key={group._id} value={group._id}>
                         {group.name}
@@ -236,7 +240,15 @@ const ProductList = () => {
 
                 <Tag color="blue">{formValues?.subSeries?.name}</Tag>
                 <Form.Item name="subSeries" label="Sub Series">
-                  <Select placeholder="Select sub series">
+                  <Select
+                    filterOption={(input, option) =>
+                      (option?.children ?? "")
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
+                    showSearch
+                    placeholder="Select sub series"
+                  >
                     {subSeries.map((subSeries) => (
                       <Select.Option key={subSeries._id} value={subSeries._id}>
                         {subSeries.name}
@@ -250,7 +262,11 @@ const ProductList = () => {
               <div>
                 <Tag color="blue">{formValues?.series?.name}</Tag>
                 <Form.Item name="series" label="Series">
-                  <Select onChange={fetchSubSeries} placeholder="Select series">
+                  <Select
+                    showSearch
+                    onChange={fetchSubSeries}
+                    placeholder="Select series"
+                  >
                     {series.map((series) => (
                       <Select.Option key={series._id} value={series._id}>
                         {series.name}
