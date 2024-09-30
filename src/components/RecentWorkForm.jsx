@@ -61,7 +61,12 @@ const RecentWorkCreateForm = () => {
       await createRecentWork(formData, config);
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setUploadProgress(0);
       form.resetFields();

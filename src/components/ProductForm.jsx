@@ -211,6 +211,7 @@ const ProductForm = () => {
             )}
             <Upload
               name="image"
+              accept="image/*"
               listType=""
               fileList={imagesForView.map((img) => ({
                 name: img.split("/").pop(),

@@ -44,7 +44,12 @@ const Contacts = () => {
       getContacts();
     } catch (error) {
       console.log(error);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
     // Add your view logic here
   };
@@ -85,7 +90,12 @@ const Contacts = () => {
       getContacts();
     } catch (error) {
       console.log(error);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 

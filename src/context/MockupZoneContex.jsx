@@ -28,11 +28,19 @@ export const MockupZoneContextProvider = ({ children }) => {
       const response = await axios.post("/mockup-zones", data, config);
       if (response.status === 201) {
         setMockupZone([...mockupZone, response.data]);
-        notification.success({ message: "MockupZone created successfully!" });
+        notification.success({
+          duration: 2,
+          message: "MockupZone created successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to create MockupZone" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -70,11 +78,19 @@ export const MockupZoneContextProvider = ({ children }) => {
       const response = await axios.delete(`/mockup-zones/${id}`);
       if (response.status === 200) {
         fetchMockupZone();
-        notification.success({ message: "MockupZone deleted successfully!" });
+        notification.success({
+          duration: 2,
+          message: "MockupZone deleted successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to delete MockupZone" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -95,11 +111,19 @@ export const MockupZoneContextProvider = ({ children }) => {
       const response = await axios.patch(`/mockup-zones/${id}`, data, config);
       if (response.status === 200) {
         fetchMockupZone();
-        notification.success({ message: "MockupZone updated successfully!" });
+        notification.success({
+          duration: 2,
+          message: "MockupZone updated successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to update MockupZone" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }

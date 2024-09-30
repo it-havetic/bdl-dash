@@ -88,8 +88,10 @@ const AcademyEdit = ({ onCancel, visible, academy }) => {
     } catch (error) {
       console.error(error.message);
       notification.error({
-        message: "Error",
-        description: error.message,
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
       });
     } finally {
       setImage([]);

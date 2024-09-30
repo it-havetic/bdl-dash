@@ -21,7 +21,12 @@ const ProductContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to fetch products" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -31,11 +36,19 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.post("/products", data, config);
       if (response.status === 201) {
         setProducts([...products, response.data]);
-        notification.success({ message: "Product created successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Product created successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to create product" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -47,11 +60,19 @@ const ProductContextProvider = ({ children }) => {
       if (response.status === 200) {
         fetchProducts();
         setProducts(products.filter((product) => product._id !== id));
-        notification.success({ message: "Product deleted successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Product deleted successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to delete product" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -60,11 +81,19 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.patch(`/products/${id}`, data);
       if (response.status === 200) {
         fetchProducts();
-        notification.success({ message: "Product updated successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Product updated successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to update product" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 

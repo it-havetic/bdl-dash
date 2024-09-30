@@ -177,6 +177,18 @@ const Sidebar = () => {
           </li>
           <li>
             <NavLink
+              to="/user-mangement"
+              className={({ isActive }) =>
+                `block py-2.5 px-4 rounded transition duration-200 ${
+                  isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                }`
+              }
+            >
+              User Mangement
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/contacts"
               className={({ isActive }) =>
                 `block py-2.5 px-4 rounded transition duration-200 ${

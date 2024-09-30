@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import MockupZone from "./pages/MockupZone";
 import RecentWorks from "./pages/RecentWorks";
 import Specification from "./pages/Specification";
+import UserManagement from "./pages/UserManagement";
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
               }
             />
             <Route path="/contacts" element={<Contacts />} />
+            <Route path="/user-mangement" element={<UserManagement />} />
           </Route>
         </Routes>
       </AuthContextProvider>

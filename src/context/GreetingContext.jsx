@@ -22,7 +22,12 @@ export const GreetingContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to fetch greeting" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -33,13 +38,19 @@ export const GreetingContextProvider = ({ children }) => {
       if (response.status === 201) {
         fetchGreeting();
         notification.success({
+          duration: 2,
           message: "Greeting created successfully!",
         });
         setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to create greeting" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -50,13 +61,19 @@ export const GreetingContextProvider = ({ children }) => {
       if (response.status === 200) {
         fetchGreeting();
         notification.success({
+          duration: 2,
           message: "Greeting updated successfully!",
         });
         setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to update greeting" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -66,6 +83,7 @@ export const GreetingContextProvider = ({ children }) => {
       const response = await axios.delete(`/greeting/${id}`);
       if (response.status === 200) {
         notification.success({
+          duration: 2,
           message: "Greeting deleted successfully!",
         });
         fetchGreeting();
@@ -73,7 +91,12 @@ export const GreetingContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to delete greeting" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 

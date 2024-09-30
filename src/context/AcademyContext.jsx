@@ -20,7 +20,12 @@ const AcademyContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -29,13 +34,21 @@ const AcademyContextProvider = ({ children }) => {
     try {
       const response = await axios.post(`/academys`, values, config);
       if (response.status === 201) {
-        notification.success({ message: "Academy created successfully" });
+        notification.success({
+          duration: 2,
+          message: "Academy created successfully",
+        });
         getAcademy();
         setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -45,12 +58,20 @@ const AcademyContextProvider = ({ children }) => {
       const response = await axios.patch(`/academys/${id}`, values, config);
       if (response.status === 200) {
         getAcademy();
-        notification.success({ message: "Academy updated successfully" });
+        notification.success({
+          duration: 2,
+          message: "Academy updated successfully",
+        });
         setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -59,11 +80,19 @@ const AcademyContextProvider = ({ children }) => {
       const response = await axios.delete(`/academys/${id}`);
       if (response.status === 200) {
         getAcademy();
-        notification.success({ message: "Academy deleted successfully" });
+        notification.success({
+          duration: 2,
+          message: "Academy deleted successfully",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 

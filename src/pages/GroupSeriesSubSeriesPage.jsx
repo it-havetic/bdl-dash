@@ -138,6 +138,7 @@ const GroupSeriesSubSeriesPage = () => {
         fetchSeries();
         fetchSubSeries();
         notification.success({
+          duration: 2,
           message: "Series Updated Successfully",
         });
       })
@@ -187,6 +188,7 @@ const GroupSeriesSubSeriesPage = () => {
         fetchSeries();
         fetchSubSeries();
         notification.success({
+          duration: 2,
           message: "Subseries Updated Successfully",
         });
       })
@@ -272,13 +274,21 @@ const GroupSeriesSubSeriesPage = () => {
     setLoadingGroup(true);
     try {
       await axios.post("/groups", formData);
-      notification.success({ message: "Group created successfully!" });
+      notification.success({
+        duration: 2,
+        message: "Group created successfully!",
+      });
       fetchGroups();
       groupForm.resetFields();
       setGroupImage();
       setGroupImagesForView([]);
     } catch (error) {
-      notification.error({ message: "Error creating group" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoadingGroup(false);
     }
@@ -305,13 +315,21 @@ const GroupSeriesSubSeriesPage = () => {
 
     try {
       await axios.post("/series", formData);
-      notification.success({ message: "Series created successfully!" });
+      notification.success({
+        duration: 2,
+        message: "Series created successfully!",
+      });
       fetchSeries();
       seriesForm.resetFields();
       setSeriesImage();
       setSeriesImagesForView([]);
     } catch (error) {
-      notification.error({ message: "Error creating series" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoadingSeries(false);
     }
@@ -338,13 +356,21 @@ const GroupSeriesSubSeriesPage = () => {
 
     try {
       await axios.post("/sub-series", formData);
-      notification.success({ message: "SubSeries created successfully!" });
+      notification.success({
+        duration: 2,
+        message: "SubSeries created successfully!",
+      });
       fetchSubSeries();
       subSeriesForm.resetFields();
       setSubSeriesImage();
       setSubSeriesImagesForView([]);
     } catch (error) {
-      notification.error({ message: "Error creating subSeries" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoadingSubSeries(false);
     }
@@ -354,7 +380,10 @@ const GroupSeriesSubSeriesPage = () => {
   const handleGroupDelete = async (id) => {
     try {
       await axios.delete(`/groups/${id}`);
-      notification.success({ message: "Group deleted successfully!" });
+      notification.success({
+        duration: 2,
+        message: "Group deleted successfully!",
+      });
       fetchGroups();
     } catch (error) {
       notification.error({
@@ -367,7 +396,10 @@ const GroupSeriesSubSeriesPage = () => {
     try {
       const res = await axios.delete(`/series/${id}`);
       if (res.status === 200) {
-        notification.success({ message: "Series deleted successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Series deleted successfully!",
+        });
         fetchSeries();
       }
     } catch (error) {
@@ -380,10 +412,18 @@ const GroupSeriesSubSeriesPage = () => {
   const handleSubSeriesDelete = async (id) => {
     try {
       await axios.delete(`/sub-series/${id}`);
-      notification.success({ message: "SubSeries deleted successfully!" });
+      notification.success({
+        duration: 2,
+        message: "SubSeries deleted successfully!",
+      });
       fetchSubSeries();
     } catch (error) {
-      notification.error({ message: "Error deleting subSeries" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -445,10 +485,12 @@ const GroupSeriesSubSeriesPage = () => {
             >
               <Upload
                 name="image"
+                accept="image/*"
                 listType="picture-card"
                 fileList={groupImagesForView.map((img) => ({ url: img }))}
                 onChange={({ fileList }) => handleGroupImageChange(fileList)}
                 beforeUpload={() => false} // Prevent automatic upload
+                maxCount={1}
               >
                 {groupImagesForView.length < 1 && "+ Upload"}
               </Upload>
@@ -561,6 +603,8 @@ const GroupSeriesSubSeriesPage = () => {
             >
               <Upload
                 name="image"
+                accept="image/*"
+                maxCount={1}
                 listType="picture-card"
                 fileList={seriesImagesForView.map((img) => ({ url: img }))}
                 onChange={({ fileList }) => handleSeriesImageChange(fileList)}
@@ -701,6 +745,8 @@ const GroupSeriesSubSeriesPage = () => {
             >
               <Upload
                 name="image"
+                accept="image/*"
+                maxCount={1}
                 listType="picture-card"
                 fileList={subSeriesImagesForView.map((img) => ({ url: img }))}
                 onChange={({ fileList }) =>
@@ -807,6 +853,8 @@ const GroupSeriesSubSeriesPage = () => {
           >
             <Upload
               name="image"
+              accept="image/*"
+              maxCount={1}
               listType="picture-card"
               fileList={groupImagesForView.map((img) => ({ url: img }))}
               onChange={({ fileList }) => handleGroupImageChange(fileList)}
@@ -872,6 +920,8 @@ const GroupSeriesSubSeriesPage = () => {
           <Form.Item name="image" label="Series Images" valuePropName="image">
             <Upload
               name="image"
+              accept="image/*"
+              maxCount={1}
               listType="picture-card"
               fileList={seriesImagesForView.map((img) => ({ url: img }))}
               onChange={({ fileList }) => handleSeriesImageChange(fileList)}
@@ -956,6 +1006,8 @@ const GroupSeriesSubSeriesPage = () => {
           >
             <Upload
               name="image"
+              accept="image/*"
+              maxCount={1}
               listType="picture-card"
               fileList={subSeriesImagesForView.map((img) => ({ url: img }))}
               onChange={({ fileList }) => handleSubSeriesImageChange(fileList)}

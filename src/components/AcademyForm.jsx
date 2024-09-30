@@ -45,7 +45,10 @@ const AcademyForm = () => {
     } catch (error) {
       console.error(error.message);
       notification.error({
-        message: error.message,
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
       });
     } finally {
       setUploadProgress(0);

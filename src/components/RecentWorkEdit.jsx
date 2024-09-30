@@ -110,7 +110,10 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
     } catch (error) {
       console.error(error);
       notification.error({
-        message: error.message,
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
       });
     } finally {
       form.resetFields();

@@ -28,7 +28,12 @@ export const RecentWorksContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -44,11 +49,19 @@ export const RecentWorksContextProvider = ({ children }) => {
       const response = await axios.post("/recent-works", data, config);
       if (response.status === 201) {
         getRecentWorks();
-        notification.success({ message: "Recent work created successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Recent work created successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -68,11 +81,19 @@ export const RecentWorksContextProvider = ({ children }) => {
       const response = await axios.patch(`/recent-works/${id}`, data, config);
       if (response.status === 200) {
         getRecentWorks();
-        notification.success({ message: "Recent work updated successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Recent work updated successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -90,11 +111,19 @@ export const RecentWorksContextProvider = ({ children }) => {
       const response = await axios.delete(`/recent-works/${id}`);
       if (response.status === 200) {
         getRecentWorks();
-        notification.success({ message: "Recent work deleted successfully!" });
+        notification.success({
+          duration: 2,
+          message: "Recent work deleted successfully!",
+        });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }

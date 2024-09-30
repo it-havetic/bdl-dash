@@ -43,7 +43,10 @@ const GreetingForm = () => {
       await createGreeting(formData, config);
     } catch (error) {
       notification.error({
-        message: "Failed to create greeting",
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
       });
     } finally {
       setUploadProgress(0);

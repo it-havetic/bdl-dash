@@ -21,7 +21,12 @@ const SpecificationContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: "Failed to fetch specifications" });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
@@ -34,12 +39,18 @@ const SpecificationContextProvider = ({ children }) => {
       if (response.status === 201) {
         getSpecification();
         notification.success({
+          duration: 2,
           message: "Specification created successfully!",
         });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -53,12 +64,18 @@ const SpecificationContextProvider = ({ children }) => {
       if (response.status === 200) {
         getSpecification();
         notification.success({
+          duration: 2,
           message: "Specification updated successfully!",
         });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     } finally {
       setLoading(false);
     }
@@ -70,12 +87,18 @@ const SpecificationContextProvider = ({ children }) => {
       if (response.status === 200) {
         getSpecification();
         notification.success({
+          duration: 2,
           message: "Specification deleted successfully!",
         });
       }
     } catch (error) {
       console.error(error.message);
-      notification.error({ message: error.message });
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 

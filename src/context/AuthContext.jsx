@@ -18,7 +18,7 @@ const AuthContextProvider = ({ children }) => {
       if (res.status === 200) {
         if (res.data.role === "admin") {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
-          notification.success({ message: "Login Successful" });
+          notification.success({ duration: 2, message: "Login Successful" });
           navigate("/");
         } else {
           Modal.error({
@@ -33,7 +33,12 @@ const AuthContextProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      notification.error({ message: "Error while logging in." });
+      notification.error({
+        message:
+          error.response.data.message ||
+          `${error.response.data.message} Please contacts with admin.`,
+        duration: 2,
+      });
     }
   };
 
