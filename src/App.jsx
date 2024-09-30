@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import BlogSubmission from "./components/BlogSubmission";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
-import Testimonium from "./components/Testimonium";
 import Products from "./pages/Products";
 
+import AcademyContextProvider from "./context/AcademyContext";
 import AuthContextProvider from "./context/AuthContext";
 import { GreetingContextProvider } from "./context/GreetingContext";
 import MockupZoneContextProvider from "./context/MockupZoneContex";
 import ProductContextProvider from "./context/ProductContext";
 import { RecentWorksContextProvider } from "./context/RecentWorksContext";
 import SpecificationContextProvider from "./context/SpecificationContext";
+import Academy from "./pages/Academy";
 import Greeting from "./pages/Greeting";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
 import Login from "./pages/Login";
@@ -74,8 +74,15 @@ function App() {
                 </GreetingContextProvider>
               }
             />
-            <Route path="/testimonium" element={<Testimonium />} />
-            <Route path="/blog-submission" element={<BlogSubmission />} />
+            {/* <Route path="/testimonium" element={<Testimonium />} /> */}
+            <Route
+              path="/blog-submission"
+              element={
+                <AcademyContextProvider>
+                  <Academy />
+                </AcademyContextProvider>
+              }
+            />
           </Route>
         </Routes>
       </AuthContextProvider>

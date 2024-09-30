@@ -135,7 +135,7 @@ const Sidebar = () => {
                 }`
               }
             >
-              Media Files for Mockup Zone
+              Mockup Zone
             </NavLink>
           </li>
           <li>
@@ -147,7 +147,7 @@ const Sidebar = () => {
                 }`
               }
             >
-              Media Files for Recent Work
+              Recent Work
             </NavLink>
           </li>
           <li>
@@ -159,21 +159,10 @@ const Sidebar = () => {
                 }`
               }
             >
-              Image Files for Greeting
+              Greeting
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/testimonium"
-              className={({ isActive }) =>
-                `block py-2.5 px-4 rounded transition duration-200 ${
-                  isActive ? "bg-gray-700" : "hover:bg-gray-700"
-                }`
-              }
-            >
-              Media Files for Testimonium
-            </NavLink>
-          </li>
+
           <li>
             <NavLink
               to="/blog-submission"
@@ -183,7 +172,7 @@ const Sidebar = () => {
                 }`
               }
             >
-              Blog Submission
+              Academy
             </NavLink>
           </li>
         </ul>

@@ -14,7 +14,7 @@ import GreetingContext from "../context/GreetingContext";
 const GreetingForm = () => {
   const { createGreeting, loading } = useContext(GreetingContext);
   const [form] = Form.useForm();
-  const [image, setImage] = useState(); // Store selected image
+  const [image, setImage] = useState([]); // Store selected image
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const onFinish = async (values) => {
@@ -48,7 +48,7 @@ const GreetingForm = () => {
     } finally {
       setUploadProgress(0);
       form.resetFields();
-      setImage();
+      setImage([]);
     }
   };
 
@@ -102,7 +102,7 @@ const GreetingForm = () => {
             beforeUpload={() => false} // Prevent automatic upload
             onChange={({ fileList }) => setImage(fileList)}
           >
-            {image ? null : (
+            {image.length < 1 && (
               <div>
                 <PlusOutlined />
                 <div style={{ marginTop: 8 }}>Upload</div>
