@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userInfo.userEmail) {
+    if (!userInfo.role === "admin") {
       navigate("/login");
     }
   });

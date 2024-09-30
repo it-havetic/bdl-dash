@@ -10,10 +10,10 @@ const Login = () => {
     loginUser(values);
   };
   useEffect(() => {
-    if (userInfo.userEmail) {
+    if (userInfo.role === "admin") {
       navigate("/");
     }
-  });
+  }, [userInfo]);
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 shadow-lg rounded-lg max-w-md w-full">
