@@ -92,6 +92,10 @@ const AcademyEdit = ({ onCancel, visible, academy }) => {
         description: error.message,
       });
     } finally {
+      setImage([]);
+      setVideo([]);
+      setImageToDelete();
+      setVideoToDelete();
       setUploadProgress(0);
       onCancel();
       form.resetFields();
