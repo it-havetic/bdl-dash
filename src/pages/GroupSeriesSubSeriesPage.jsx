@@ -1,8 +1,8 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import {
-  Avatar,
   Button,
   Form,
+  Image,
   Input,
   List,
   Modal,
@@ -475,10 +475,10 @@ const GroupSeriesSubSeriesPage = () => {
               <List.Item>
                 <List.Item.Meta
                   avatar={
-                    <Avatar
-                      className="w-14 h-14"
+                    <Image
                       src={`${import.meta.env.VITE_URL}` + group.image}
-                    />
+                      className="!w-14 !h-14 !rounded-full"
+                    ></Image>
                   }
                   title={group.name}
                 />
@@ -591,10 +591,10 @@ const GroupSeriesSubSeriesPage = () => {
               <List.Item>
                 <List.Item.Meta
                   avatar={
-                    <Avatar
-                      className="w-14 h-14"
+                    <Image
                       src={`${import.meta.env.VITE_URL}` + ser.image}
-                    />
+                      className="!w-14 !h-14 !rounded-full"
+                    ></Image>
                   }
                   title={ser.name}
                   description={ser?.group?.name}
@@ -737,10 +737,10 @@ const GroupSeriesSubSeriesPage = () => {
               <List.Item>
                 <List.Item.Meta
                   avatar={
-                    <Avatar
-                      className="w-14 h-14"
+                    <Image
                       src={`${import.meta.env.VITE_URL}` + subSer.image}
-                    />
+                      className="!w-14 !h-14 !rounded-full"
+                    ></Image>
                   }
                   title={subSer.name}
                   description={subSer.series.name}
