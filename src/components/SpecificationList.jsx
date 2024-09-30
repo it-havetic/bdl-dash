@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Popconfirm, Table } from "antd";
+import { Button, Image, Input, Modal, Popconfirm, Table } from "antd";
 import { useContext, useState } from "react";
 import { SpecificationContext } from "../context/SpecificationContext";
 import SpecificationEditForm from "./SpecificationEditForm";
@@ -81,7 +81,7 @@ const SpecificationList = () => {
       key: "image",
       render: (image) => (
         <div className="flex justify-center">
-          <img
+          <Image
             src={`${import.meta.env.VITE_URL}` + image}
             alt="Product"
             style={{ height: 150, borderRadius: "8px" }}

@@ -50,10 +50,9 @@ const MockupZoneList = () => {
     setSelectedMockupZone(record);
   };
 
-
-/**
- * Hides the edit mockup zone modal and resets the selected mockup zone to null.
- */
+  /**
+   * Hides the edit mockup zone modal and resets the selected mockup zone to null.
+   */
   const handleEditCancel = () => {
     setIsModalVisibleForEdit(false);
     setSelectedMockupZone(null);
@@ -79,7 +78,7 @@ const MockupZoneList = () => {
       render: (images) => (
         <div className="flex flex-wrap items-center">
           {images.slice(0, 3).map((image, index) => (
-            <img
+            <Image
               key={index}
               src={`${import.meta.env.VITE_URL}` + image}
               alt={`Image ${index + 1}`}

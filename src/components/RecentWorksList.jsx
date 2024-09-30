@@ -70,7 +70,7 @@ const RecentWorksList = () => {
       render: (images) => (
         <div className="flex flex-wrap items-center">
           {images.slice(0, 2).map((image, index) => (
-            <img
+            <Image
               key={index}
               src={`${import.meta.env.VITE_URL}` + image}
               alt={`Image ${index + 1}`}

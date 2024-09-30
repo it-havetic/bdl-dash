@@ -6,6 +6,7 @@ import {
 import {
   Button,
   Form,
+  Image,
   Input,
   message,
   Modal,
@@ -159,7 +160,7 @@ const ProductList = () => {
       dataIndex: "image",
       key: "image",
       render: (image) => (
-        <img
+        <Image
           src={`${import.meta.env.VITE_URL}` + image}
           alt="Product"
           style={{ width: 100 }}
@@ -176,7 +177,9 @@ const ProductList = () => {
             style={{ marginRight: 8 }}
             type="link"
             icon={<EditOutlined />}
-          >Edit</Button>
+          >
+            Edit
+          </Button>
           <Popconfirm
             title="Are you sure to delete this product?"
             onConfirm={() => handleDelete(record._id)}
