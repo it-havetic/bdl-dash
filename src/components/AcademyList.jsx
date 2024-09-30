@@ -106,7 +106,12 @@ const AcademyList = () => {
 
   return (
     <>
-      <Table dataSource={academy} columns={columns} rowKey="_id" />
+      <Table
+        dataSource={academy}
+        pagination={{ pageSize: 10 }}
+        columns={columns}
+        rowKey="_id"
+      />
       <Modal
         title="View Academy"
         visible={isModalVisibleForView}
