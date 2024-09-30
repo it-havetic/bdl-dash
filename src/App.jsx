@@ -12,6 +12,7 @@ import ProductContextProvider from "./context/ProductContext";
 import { RecentWorksContextProvider } from "./context/RecentWorksContext";
 import SpecificationContextProvider from "./context/SpecificationContext";
 import Academy from "./pages/Academy";
+import Contacts from "./pages/Contacts";
 import Greeting from "./pages/Greeting";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
 import Login from "./pages/Login";
@@ -76,13 +77,14 @@ function App() {
             />
             {/* <Route path="/testimonium" element={<Testimonium />} /> */}
             <Route
-              path="/blog-submission"
+              path="/academy"
               element={
                 <AcademyContextProvider>
                   <Academy />
                 </AcademyContextProvider>
               }
             />
+            <Route path="/contacts" element={<Contacts />} />
           </Route>
         </Routes>
       </AuthContextProvider>

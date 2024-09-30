@@ -165,7 +165,7 @@ const Sidebar = () => {
 
           <li>
             <NavLink
-              to="/blog-submission"
+              to="/academy"
               className={({ isActive }) =>
                 `block py-2.5 px-4 rounded transition duration-200 ${
                   isActive ? "bg-gray-700" : "hover:bg-gray-700"
@@ -173,6 +173,18 @@ const Sidebar = () => {
               }
             >
               Academy
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contacts"
+              className={({ isActive }) =>
+                `block py-2.5 px-4 rounded transition duration-200 ${
+                  isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                }`
+              }
+            >
+              Contacts
             </NavLink>
           </li>
         </ul>
