@@ -142,6 +142,7 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
         onCancel={onCancel}
         footer={null}
         width={1000}
+        maskClosable={false}
         style={{ top: 20 }}
       >
         <Form form={form} layout="vertical" onFinish={handleUpdate}>
