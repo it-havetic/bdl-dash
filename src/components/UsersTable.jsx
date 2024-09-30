@@ -38,11 +38,19 @@ const UsersTable = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`/api/users/${userId}`);
-      message.success("User deleted successfully");
+      await axios.delete(`/users/${userId}`);
+      notification.success({
+        duration: 2,
+        message: "User deleted successfully",
+      });
       fetchUsers(); // Refresh the user list after deletion
     } catch (error) {
-      message.error("Failed to delete user");
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
     }
   };
 
