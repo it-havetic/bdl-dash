@@ -1,6 +1,15 @@
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, notification, Progress, Upload } from "antd";
-import { useContext, useState } from "react";
+import {
+  Button,
+  Form,
+  Input,
+  notification,
+  Progress,
+  Select,
+  Upload,
+} from "antd";
+import { useContext, useEffect, useState } from "react";
+import axios from "../axios";
 import RecentWorksContext from "../context/RecentWorksContext";
 
 const uploadButton = (
@@ -12,12 +21,26 @@ const uploadButton = (
 const RecentWorkCreateForm = () => {
   const [form] = Form.useForm();
   const { createRecentWork } = useContext(RecentWorksContext);
+  const [series, setSeries] = useState([]);
 
   const [uploadProgress, setUploadProgress] = useState(0); // State for progress
 
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
   const [thumbnail, setThumbnail] = useState([]);
+
+  const getAllSerise = async () => {
+    try {
+      const res = await axios.get("/series");
+      setSeries(res.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllSerise();
+  }, []);
 
   const handleImageChange = ({ fileList: newImagesFileList }) =>
     setImages(newImagesFileList);
@@ -44,6 +67,10 @@ const RecentWorkCreateForm = () => {
     }
     if (thumbnail) {
       formData.append("thumbnail", thumbnail[0].originFileObj);
+    }
+
+    if (values.series) {
+      values.series.forEach((serise) => formData.append("series[]", serise));
     }
 
     // Set up the config to track the progress
@@ -181,6 +208,34 @@ const RecentWorkCreateForm = () => {
             </Upload>
           </Form.Item>
         </div>
+        <Form.Item className="col-span-2" name="series" label="Series">
+          <Select
+            mode="multiple"
+            name="series"
+            allowClear
+            style={{
+              width: "100%",
+            }}
+            className="col-span-2"
+            placeholder="Please select"
+          >
+            {series.map((item) => (
+              <Select.Option
+                style={{ display: "flex", alignItems: "center" }}
+                key={item._id}
+                value={item._id}
+              >
+                <img
+                  className="inline-block mr-1 mb-1"
+                  src={`${import.meta.env.VITE_URL}` + item.image}
+                  width={20}
+                  alt=""
+                />
+                <span className="inline-block">{item.name}</span>
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
 
         {uploadProgress > 0 && (
           <Progress

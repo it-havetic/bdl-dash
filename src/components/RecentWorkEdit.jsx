@@ -11,6 +11,7 @@ import {
 } from "antd";
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
+import axios from "../axios";
 import RecentWorksContext from "../context/RecentWorksContext";
 
 const uploadButton = (
@@ -31,6 +32,21 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
   const [imagesToDelete, setImagesToDelete] = useState([]); // Images to delete
   const [videosToDelete, setVideosToDelete] = useState([]); // Videos to delete
 
+  const [series, setSeries] = useState([]);
+
+  const getAllSerise = async () => {
+    try {
+      const res = await axios.get("/series");
+      setSeries(res.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllSerise();
+  }, []);
+
   useEffect(() => {
     if (recentWork) {
       form.setFieldsValue({
@@ -40,6 +56,7 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
         location: recentWork.location,
         priority: recentWork.priority,
         status: recentWork.status,
+        series: recentWork.series,
       });
 
       // Populate existing files
@@ -71,6 +88,9 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
     if (values.location) formData.append("location", values.location);
     if (values.description) formData.append("description", values.description);
     if (values.priority) formData.append("priority", values.priority);
+    if (values.status) formData.append("status", values.status);
+    if (values.series)
+      values.series.forEach((s) => formData.append("series[]", s));
 
     if (image.length > 0) {
       for (let i = 0; i < image.length; i++) {
@@ -174,6 +194,34 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
               </Select>
             </Form.Item>
           </div>
+          <Form.Item className="col-span-2" name="series" label="Series">
+            <Select
+              mode="multiple"
+              name="series"
+              allowClear
+              style={{
+                width: "100%",
+              }}
+              className="col-span-2"
+              placeholder="Please select"
+            >
+              {series.map((item) => (
+                <Select.Option
+                  style={{ display: "flex", alignItems: "center" }}
+                  key={item._id}
+                  value={item._id}
+                >
+                  <img
+                    className="inline-block mr-1 mb-1"
+                    src={`${import.meta.env.VITE_URL}` + item.image}
+                    width={20}
+                    alt=""
+                  />
+                  <span className="inline-block">{item.name}</span>
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
           {/* Description */}
           <Form.Item name="description" label="Description">
             <Input.TextArea
