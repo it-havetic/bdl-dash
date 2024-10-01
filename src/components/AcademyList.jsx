@@ -64,7 +64,7 @@ const AcademyList = () => {
         ),
     },
     {
-      title: "Priority",
+      title: "prioroty",
       dataIndex: "prioroty",
       key: "prioroty",
     },
