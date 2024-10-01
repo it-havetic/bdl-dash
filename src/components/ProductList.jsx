@@ -80,7 +80,7 @@ const ProductList = () => {
 
   const onFinish = (values) => {
     const formData = new FormData();
-    if (typeof values.subSeries === "object") {
+    if (typeof values.subSeries === "object" && values.subSeries) {
       values.subSeries = values.subSeries._id;
     }
     if (typeof values.series === "object") {
@@ -106,7 +106,7 @@ const ProductList = () => {
   };
 
   const handleEdit = (product) => {
-    console.log("Edit product with ID:", product.id);
+    console.log("Edit product with ID:", product._id);
     setFormValues(product);
     setIsModalVisible(true);
   };

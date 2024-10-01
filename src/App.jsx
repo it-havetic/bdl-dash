@@ -6,12 +6,14 @@ import Products from "./pages/Products";
 
 import AcademyContextProvider from "./context/AcademyContext";
 import AuthContextProvider from "./context/AuthContext";
+import CompanyProfileContextProvider from "./context/CompanyProfileContext";
 import { GreetingContextProvider } from "./context/GreetingContext";
 import MockupZoneContextProvider from "./context/MockupZoneContex";
 import ProductContextProvider from "./context/ProductContext";
 import { RecentWorksContextProvider } from "./context/RecentWorksContext";
 import SpecificationContextProvider from "./context/SpecificationContext";
 import Academy from "./pages/Academy";
+import CompanyProfile from "./pages/CompanyProfile";
 import Contacts from "./pages/Contacts";
 import Greeting from "./pages/Greeting";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
@@ -87,6 +89,14 @@ function App() {
             />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/user-mangement" element={<UserManagement />} />
+            <Route
+              path="/profile"
+              element={
+                <CompanyProfileContextProvider>
+                  <CompanyProfile />
+                </CompanyProfileContextProvider>
+              }
+            />
           </Route>
         </Routes>
       </AuthContextProvider>
