@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "./components/Home";
 import Layout from "./components/Layout";
 import Products from "./pages/Products";
 
@@ -17,6 +16,7 @@ import CompanyProfile from "./pages/CompanyProfile";
 import Contacts from "./pages/Contacts";
 import Greeting from "./pages/Greeting";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MockupZone from "./pages/MockupZone";
 import RecentWorks from "./pages/RecentWorks";
