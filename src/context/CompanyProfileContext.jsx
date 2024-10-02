@@ -6,7 +6,7 @@ import axios from "../axios";
 export const CompanyProfileContext = createContext();
 
 const CompanyProfileContextProvider = ({ children }) => {
-  const [companyProfile, setCompanyProfile] = useState({});
+  const [companyProfile, setCompanyProfile] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -17,6 +17,7 @@ const CompanyProfileContextProvider = ({ children }) => {
     try {
       const response = await axios.get("/profiles");
       if (response.status === 200) {
+        setCompanyProfile();
         setCompanyProfile(response.data);
       }
     } catch (error) {
@@ -106,6 +107,7 @@ const CompanyProfileContextProvider = ({ children }) => {
         createCompanyProfile,
         updateCompanyProfile,
         deleteCompanyProfile,
+        getAllCompanyProfile,
       }}
     >
       {children}

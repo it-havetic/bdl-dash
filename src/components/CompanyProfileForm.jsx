@@ -15,7 +15,7 @@ const CompanyProfileForm = () => {
     const formData = new FormData();
     formData.append("article", values.article);
     formData.append("completedProjects", values.completedProjects);
-    formData.append("satisfiedClients", values.satisfiedClients);
+    formData.append("satisfiedclients", values.satisfiedclients);
     formData.append("underConstruction", values.underConstruction);
     formData.append("ongoingProjects", values.ongoingProjects);
     formData.append("teamMembers", values.teamMembers);
@@ -85,7 +85,7 @@ const CompanyProfileForm = () => {
             <Input type="number" className="rounded-lg" />
           </Form.Item>
 
-          <Form.Item name="satisfiedClients" label="Satisfied Clients">
+          <Form.Item name="satisfiedclients" label="Satisfied Clients">
             <Input type="number" className="rounded-lg" />
           </Form.Item>
 

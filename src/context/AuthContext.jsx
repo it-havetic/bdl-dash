@@ -14,7 +14,6 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = async (data) => {
     try {
       const res = await customAxios.post("/users/login", data);
-      console.log(res.data);
       if (res.status === 200) {
         if (res.data.role === "admin") {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
