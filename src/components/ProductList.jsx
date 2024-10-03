@@ -22,6 +22,8 @@ import { ProductContext } from "../context/ProductContext";
 
 const ProductList = () => {
   const { products, deleteProduct, updateProduct } = useContext(ProductContext);
+  const [searchTerm, setSearchTerm] = useState(""); // State to store the search input
+  const [pageSize, setPageSize] = useState(6); // Initialize page size
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [productImage, setProductImage] = useState();
@@ -38,6 +40,19 @@ const ProductList = () => {
     fetchGroups();
   }, [products]);
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredProducts = products?.filter(
+    (product) =>
+      product?.itemCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product?.subSeries?.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      product?.group?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product?.series?.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const fetchGroups = async () => {
     try {
       const response = await axios.get("/groups");
@@ -197,12 +212,28 @@ const ProductList = () => {
 
   return (
     <>
+      {/* Search Input */}
+      <div className="mb-4 flex justify-end">
+        <Input.Search
+          placeholder="Search by title, client or location"
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{ width: 300 }}
+        />
+      </div>
       <Table
         title={() => <h1 className="text-2xl font-bold">Product List</h1>}
-        dataSource={products}
+        dataSource={filteredProducts}
         columns={columns}
         rowKey="_id"
-        pagination={{ pageSize: 6 }}
+        pagination={{
+          pageSize: pageSize, // Default page size
+          showSizeChanger: true, // Enable size changer
+          pageSizeOptions: ["6", "10", "20", "50"], // Page size options for the user
+          onShowSizeChange: (current, size) => {
+            setPageSize(size); // Set the selected page size
+          },
+        }}
       />
 
       <Modal

@@ -152,6 +152,9 @@ const RecentWorksList = () => {
       >
         <div>
           <p className="font-semibold text-xl mb-4">
+            Prioroty: {selectedRecentWork?.prioroty}
+          </p>
+          <p className="font-semibold text-xl mb-4">
             Project Name: {selectedRecentWork?.title}
           </p>
           <p className="font-semibold text-xl mb-4">

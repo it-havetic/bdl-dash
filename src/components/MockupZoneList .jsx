@@ -133,7 +133,7 @@ const MockupZoneList = () => {
     <>
       <Table
         columns={columns}
-        dataSource={mockupZone.sort((a, b) => a.prioroty - b.prioroty) || []}
+        dataSource={mockupZone?.sort((a, b) => a.prioroty - b.prioroty) || []}
         pagination={{ pageSize: 4 }}
         loading={loading}
         rowKey="_id" // Use _id as the unique key

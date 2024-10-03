@@ -122,7 +122,6 @@ const GroupSeriesSubSeriesPage = () => {
 
   const handleSeriesEditOk = (value) => {
     const formData = new FormData();
-    alert(JSON.stringify(value));
 
     if (typeof value.group === "object") {
       value.group = value.group._id;
@@ -255,6 +254,7 @@ const GroupSeriesSubSeriesPage = () => {
       console.error("Error fetching series options", error);
     }
   };
+  
 
   const handleGroupImageChange = (fileList) => {
     if (fileList.length > 0) {
