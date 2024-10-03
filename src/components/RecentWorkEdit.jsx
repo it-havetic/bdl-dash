@@ -54,7 +54,7 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
         description: recentWork.description,
         client: recentWork.client,
         location: recentWork.location,
-        priority: recentWork.priority,
+        prioroty: recentWork.prioroty,
         status: recentWork.status,
         series: recentWork.series,
       });
@@ -87,7 +87,7 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
     if (values.client) formData.append("client", values.client);
     if (values.location) formData.append("location", values.location);
     if (values.description) formData.append("description", values.description);
-    if (values.priority) formData.append("priority", values.priority);
+    if (values.prioroty) formData.append("prioroty", values.prioroty);
     if (values.status) formData.append("status", values.status);
     if (values.series)
       values.series.forEach((s) => formData.append("series[]", s));
@@ -183,7 +183,7 @@ const RecentWorkEdit = ({ recentWork, onCancel, visible }) => {
               <Input placeholder="Enter location" />
             </Form.Item>
             {/* prioroty */}
-            <Form.Item name="priority" label="priority">
+            <Form.Item name="prioroty" label="Prioroty">
               <Input placeholder="Enter priority" type="number" />
             </Form.Item>
 

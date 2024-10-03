@@ -14,7 +14,6 @@ const RegistrationForm = () => {
       notification.success({
         duration: 2,
         message: res.data.message,
-        duration: 3,
       });
     } catch (error) {
       notification.error({

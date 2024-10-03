@@ -64,6 +64,11 @@ const RecentWorksList = () => {
       key: "client",
     },
     {
+      title: "Prioroty",
+      dataIndex: "prioroty",
+      key: "prioroty",
+    },
+    {
       title: "Images",
       dataIndex: "images",
       key: "images",
@@ -131,7 +136,7 @@ const RecentWorksList = () => {
       {/* Table */}
       <Table
         columns={columns}
-        dataSource={filteredRecentWorks}
+        dataSource={filteredRecentWorks.sort((a, b) => a.prioroty - b.prioroty)}
         pagination={{ pageSize: 5 }}
         rowKey="_id"
       />

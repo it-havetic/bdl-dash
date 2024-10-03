@@ -37,7 +37,7 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
     if (mockupZone) {
       form.setFieldsValue({
         name: mockupZone.name,
-        priority: mockupZone.priority,
+        prioroty: mockupZone.prioroty,
         status: mockupZone.status,
       });
 
@@ -72,10 +72,11 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
    * @async
    */
   const handleUpdate = async () => {
-    const { name, priority } = form.getFieldsValue();
+    const { name, prioroty } = form.getFieldsValue();
+    // console.log(handleUpdate);
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("priority", priority);
+    if (prioroty) formData.append("prioroty", prioroty);
 
     // Append files to delete
     imagesToDelete.forEach((image) =>
@@ -190,8 +191,12 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
             </Form.Item>
           </div>
           <div className="w-1/3">
-            <Form.Item label="Priority" name="priority">
-              <Input type="number" />
+            <Form.Item label="prioroty" name="prioroty">
+              <Input
+                placeholder="Enter prioroty"
+                name="prioroty"
+                type="number"
+              />
             </Form.Item>
           </div>
           <div className="w-1/3">
