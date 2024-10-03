@@ -150,7 +150,7 @@ const Home = () => {
             />
             <Progress
               percent={
-                (dashboardData.totalMessages / dashboardData.unreadMessages) *
+                (dashboardData.unreadMessages / dashboardData.totalMessages) *
                 100
               }
               strokeColor="#1890ff"
