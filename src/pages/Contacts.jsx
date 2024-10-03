@@ -71,7 +71,7 @@ const Contacts = () => {
 
   const handleDelete = async (id) => {
     try {
-      //   await axios.delete(`/contacts/${id}`);
+      await axios.delete(`/contacts/${id}`);
       console.log(id);
       setContacts(contacts.filter((contact) => contact._id !== id));
     } catch (error) {
@@ -114,7 +114,7 @@ const Contacts = () => {
     },
     {
       title: "Phone",
-      dataIndex: "phone",
+      dataIndex: "phoneNumber",
       key: "phone",
       render: (text) => (text ? <p>{text}</p> : <p>N/A</p>),
     },
@@ -150,7 +150,7 @@ const Contacts = () => {
             <div key={index} className="flex justify-center gap-2">
               <Image
                 width={100}
-                src={`${import.meta.env.VITE__URL}${item}`}
+                src={`${import.meta.env.VITE_URL}${item}`}
                 alt="Card"
               />
             </div>
