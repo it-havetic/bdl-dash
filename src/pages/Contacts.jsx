@@ -282,7 +282,7 @@ const Contacts = () => {
         {selectedContact?.visitingCard && (
           <div className="flex justify-between w-full">
             <Image
-              src={`${import.meta.env.VITE__URL}${
+              src={`${import.meta.env.VITE_URL}${
                 selectedContact?.visitingCard
               }`}
               alt="Card"
