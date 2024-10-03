@@ -27,6 +27,7 @@ const Home = () => {
     activeUsers: 0,
     inactiveUsers: 0,
     totalMessages: 0,
+    readMessages: 0,
     unreadMessages: 0,
   });
   const [messageData, setMessageData] = useState();
@@ -149,15 +150,14 @@ const Home = () => {
               value={dashboardData.totalMessages}
             />
             <Progress
-              percent={
-                (dashboardData.unreadMessages / dashboardData.totalMessages) *
-                100
-              }
+              percent={Math.round(
+                (dashboardData.readMessages / dashboardData.totalMessages) * 100
+              )}
               strokeColor="#1890ff"
             />
             <Statistic
               title="Unread Messages"
-              value={dashboardData.unreadMessages}
+              value={Math.round(dashboardData.unreadMessages)}
               className="mt-2"
             />
           </Card>
