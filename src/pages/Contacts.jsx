@@ -258,7 +258,7 @@ const Contacts = () => {
         <p>
           Phone:{" "}
           <span className="font-medium text-[18px]">
-            {selectedContact?.phone}
+            {selectedContact?.phoneNumber}
           </span>{" "}
         </p>
         <p>

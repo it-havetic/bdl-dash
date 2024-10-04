@@ -43,7 +43,8 @@ const cctOptions = [
 ];
 
 const SpecificationEditForm = ({ specification, handleEditCancel }) => {
-  const { updateSpecification, loading } = useContext(SpecificationContext);
+  const { getSpecification, updateSpecification, loading } =
+    useContext(SpecificationContext);
 
   const [groups, setGroups] = useState([]);
   const [series, setSeries] = useState([]);
@@ -206,6 +207,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       setVideosForView([]);
       handleEditCancel();
       setUploadProgress(0);
+      getSpecification();
     }
 
     // Reset form and states

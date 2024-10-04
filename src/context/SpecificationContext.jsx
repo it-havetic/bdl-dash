@@ -107,6 +107,7 @@ const SpecificationContextProvider = ({ children }) => {
       value={{
         specifications,
         loading,
+        getSpecification,
         createSpecification,
         updateSpecification,
         deleteSpecification,
