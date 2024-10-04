@@ -17,6 +17,8 @@ const SpecificationContextProvider = ({ children }) => {
     try {
       const response = await axios.get(`/specifications`);
       if (response.status === 200) {
+        console.log("from context");
+        console.log("from context", response.data);
         setSpecifications(response.data);
       }
     } catch (error) {

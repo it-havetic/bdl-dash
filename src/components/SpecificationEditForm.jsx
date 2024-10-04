@@ -184,8 +184,6 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       formData.append("video", productVideo);
     }
 
-    console.log("specification", specification._id);
-
     const congig = {
       onUploadProgress: (progressEvent) => {
         const { loaded, total } = progressEvent;
@@ -197,10 +195,10 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     // Send data to createSpecification function
     try {
       await updateSpecification(specification._id, formData, congig);
+      form.resetFields();
     } catch (error) {
       console.error(error.message);
     } finally {
-      form.resetFields();
       setProductImage();
       setProductVideo();
       setImagesForView([]);

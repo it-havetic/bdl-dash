@@ -24,13 +24,13 @@ const SpecificationList = () => {
   const handleEdit = (record) => {
     console.log(record);
     setEditModalVisible(true);
-    setSelectedSpecificationForEdit(record);
+    setSelectedSpecification(record);
   };
 
   const handleEditCancel = () => {
     setVisible(false);
     setEditModalVisible(false);
-    setSelectedSpecificationForEdit();
+    setSelectedSpecification();
   };
 
   const handleDelete = (record) => {
@@ -174,7 +174,7 @@ const SpecificationList = () => {
         maskClosable={false}
       >
         <SpecificationEditForm
-          specification={selectedSpecificationForEdit}
+          specification={selectedSpecification}
           handleEditCancel={handleEditCancel}
         />
       </Modal>
