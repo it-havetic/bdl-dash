@@ -1,4 +1,4 @@
-import { Col, Divider, Modal, Row, Tag } from "antd";
+import { Col, Divider, Image, Modal, Row, Tag } from "antd";
 import PropTypes from "prop-types";
 
 const SpecificationModal = ({ visible, onClose, specification }) => {
@@ -139,6 +139,14 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
                 </Tag>
               )) || "N/A"}
             </Col>
+            <Col span={12}>
+              <span style={{ fontSize: "18px" }}>CRI:</span>{" "}
+              {specification.cri?.map((cri) => (
+                <Tag key={cri} color="green" style={{ fontSize: "20px" }}>
+                  {cri}
+                </Tag>
+              )) || "N/A"}
+            </Col>
           </Row>
         </Col>
 
@@ -185,31 +193,37 @@ const SpecificationModal = ({ visible, onClose, specification }) => {
             {specification.customization || "N/A"}
           </span>
         </Col>
+        <Col span={12}>
+          <span style={{ fontSize: "18px" }}>Protocol:</span>{" "}
+          <span style={{ fontSize: "20px", fontWeight: "700" }}>
+            {specification.protocol || "N/A"}
+          </span>
+        </Col>
       </Row>
 
       <Divider />
 
       {/* Media Section (Image and Video) */}
       <Row style={{ padding: "20px", fontSize: "20px", height: "480px" }}>
-        <Col span={12}>
+        <Col span={12} className="overflow-hidden">
           <span style={{ fontSize: "18px" }}>Image:</span>{" "}
           {specification.image ? (
-            <img
+            <Image
               src={`${import.meta.env.VITE_URL}${specification.image}`}
               alt="Product"
-              style={{ height: "70%", borderRadius: "5px", marginTop: "10px" }} // Added border radius and margin
+              style={{ height: "400px", borderRadius: "5px", marginTop: "10px" }} 
             />
           ) : (
             "N/A"
           )}
         </Col>
-        <Col span={12}>
+        <Col span={12} className="overflow-hidden">
           <span style={{ fontSize: "18px" }}>Video:</span>{" "}
           {specification.video ? (
             <video
               src={`${import.meta.env.VITE_URL}${specification.video}`}
               controls
-              style={{ width: "100%", borderRadius: "5px", marginTop: "10px" }} // Set width to 100% for responsiveness
+              style={{ height: "400px", width: "100%", borderRadius: "5px", marginTop: "10px" }} 
             />
           ) : (
             "N/A"

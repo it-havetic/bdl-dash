@@ -17,6 +17,7 @@ import { SpecificationContext } from "../context/SpecificationContext";
 const { Option } = Select;
 
 const wattsOptions = ["1-10W", "11-20W", "21-30W"];
+const criOptions = ["<80", ">80", ">90", ">92", ">95", ">97", "+"];
 const lumensOptions = ["110lm/W", "120lm/W", "130lm/W"];
 const beamAngleOptions = ["8D", "12D", "24D", "36D", "45D", "+"];
 const rimColorOptions = ["White", "Black", "Chrome", "Rose Gold", "+"];
@@ -167,6 +168,9 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     if (values.cct) {
       values.cct.forEach((cctValue) => formData.append("cct[]", cctValue));
     }
+    if (values.cri) {
+      values.cri.forEach((criValue) => formData.append("cri[]", criValue));
+    }
     // Append other values
     formData.append("dimention", values.dimention || "");
     formData.append("shape", values.shape || "");
@@ -175,6 +179,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     formData.append("finish", values.finish || "");
     formData.append("capacity", values.capacity || "");
     formData.append("customization", values.customization || "");
+    formData.append("protocol", values.protocol || "");
 
     // Append files
     if (productImage) {
@@ -299,7 +304,7 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
       </div>
 
       {/* Checkbox Groups */}
-      <div className="grid grid-cols-10 gap-6">
+      <div className="grid grid-cols-11 gap-6">
         <Form.Item
           label={<span className="text-blue-600 font-bold text-lg">Watts</span>}
           name="watts"
@@ -404,10 +409,19 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
             className="flex-col text-gray-800"
           />
         </Form.Item>
+        <Form.Item
+          label={<span className="text-blue-600 font-bold text-lg">CRI</span>}
+          name="cri"
+        >
+          <Checkbox.Group
+            options={criOptions}
+            className="flex-col text-gray-800"
+          />
+        </Form.Item>
       </div>
 
       {/* Dimension, Shape, Customization */}
-      <div className="grid grid-cols-7 gap-6">
+      <div className="grid grid-cols-8 gap-6">
         <Form.Item
           label={
             <span className="text-blue-600 font-bold text-lg">Dimention</span>
@@ -495,6 +509,18 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
         >
           <Input
             placeholder="Enter Capacity"
+            size="large"
+            className="border border-blue-300 rounded-md text-gray-700"
+          />
+        </Form.Item>
+        <Form.Item
+          label={
+            <span className="text-blue-600 font-bold text-lg">Protocol</span>
+          }
+          name="protocol"
+        >
+          <Input
+            placeholder="Enter Protocol"
             size="large"
             className="border border-blue-300 rounded-md text-gray-700"
           />
