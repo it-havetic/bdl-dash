@@ -32,7 +32,17 @@ const mountingOptions = [
 const ipGradeOptions = ["20", "40", "65", "66", "67", "68", "+"];
 const glareOptions = ["LMS", "Parabolic", "Honeycomb", "+"];
 const bodyColorOptions = ["White", "Black", "Gold", "Chrome", "Rose Gold", "+"];
-const dimmingOptions = ["0/1-10W", "DALI", "Phase", "PWM", "24VDC"];
+const dimmingOptions = [
+  "Wireless",
+  "2.4g",
+  "0-10V",
+  "DALi",
+  "Gizbee",
+  "Mash 5.0",
+  "DMX512",
+  "24VDC",
+  "+",
+];
 const cctOptions = [
   "3000K",
   "2700K",
