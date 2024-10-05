@@ -29,6 +29,10 @@ const Home = () => {
     totalMessages: 0,
     readMessages: 0,
     unreadMessages: 0,
+    recentWorkImageCount: 0,
+    recentWorkVideoCount: 0,
+    mockupZoneImageCount: 0,
+    mockupZoneVideoCount: 0,
   });
   const [messageData, setMessageData] = useState();
 
@@ -138,6 +142,43 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
+      <Row gutter={[16, 16]} className="mt-4">
+        <Col span={8}>
+          <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
+            <Statistic
+              title="Recent Work Images"
+              value={dashboardData.recentWorkImageCount}
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
+            <Statistic
+              title="Recent Work Videos"
+              value={dashboardData.recentWorkVideoCount}
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
+            <Statistic
+              title="Mockup Zone Images"
+              value={dashboardData.mockupZoneImageCount}
+            />
+          </Card>
+        </Col>
+      </Row>
+
+      <Row gutter={[16, 16]} className="mt-4">
+        <Col span={8}>
+          <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
+            <Statistic
+              title="Mockup Zone Videos"
+              value={dashboardData.mockupZoneVideoCount}
+            />
+          </Card>
+        </Col>
+      </Row>
 
       <Divider>Customar Contact</Divider>
 
@@ -163,7 +204,6 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
-
       <Divider>User & Message Activity</Divider>
 
       <Row gutter={16}>
