@@ -36,7 +36,7 @@ const dimmingOptions = [
   "Wireless 2.4g",
   "0-10V",
   "DALi",
-  "Gizbee",
+  "ZiGbee",
   "Mash 5.0",
   "DMX512",
   "24VDC",
