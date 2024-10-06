@@ -24,13 +24,13 @@ const rimColorOptions = ["White", "Black", "Chrome", "Rose Gold", "+"];
 const mountingOptions = [
   "Surface",
   "Recessed",
-  "Base Plait",
+  "Base Plate",
   "Pendant",
-  "Floor Standing",
+  "F-Standing",
   "+",
 ];
 const ipGradeOptions = ["20", "40", "65", "66", "67", "68", "+"];
-const glareOptions = ["LMS", "Parabolic", "Honeycomb", "+"];
+const glareOptions = ["Lens", "Parabolic", "Honeycomb", "+"];
 const bodyColorOptions = ["White", "Black", "Gold", "Chrome", "Rose Gold", "+"];
 const dimmingOptions = [
   "Wireless 2.4g",
@@ -43,13 +43,15 @@ const dimmingOptions = [
   "+",
 ];
 const cctOptions = [
-  "3000K",
-  "2700K",
-  "6400K",
+  "8000K",
+  "7500K",
+  "6500K",
   "5000K",
   "4000K",
-  "3500K",
+  "3000K",
+  "2700K",
   "2000K",
+  "+",
 ];
 
 const SpecificationEditForm = ({ specification, handleEditCancel }) => {
