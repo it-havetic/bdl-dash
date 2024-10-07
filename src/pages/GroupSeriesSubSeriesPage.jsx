@@ -16,6 +16,7 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import axios from "../axios";
+import QRCodeButton from "../components/QRCodeButton ";
 
 const { Option } = Select;
 
@@ -254,7 +255,6 @@ const GroupSeriesSubSeriesPage = () => {
       console.error("Error fetching series options", error);
     }
   };
-  
 
   const handleGroupImageChange = (fileList) => {
     if (fileList.length > 0) {
@@ -524,6 +524,7 @@ const GroupSeriesSubSeriesPage = () => {
                   }
                   title={group.name}
                 />
+
                 <Button
                   onClick={() => {
                     handleGroupEdit(group);
@@ -642,6 +643,12 @@ const GroupSeriesSubSeriesPage = () => {
                   }
                   title={ser.name}
                   description={ser?.group?.name}
+                />
+                <QRCodeButton
+                  link={`https://bdluminariesweb.vercel.app/product/detail/one/${ser?.group._id}?series=${ser._id}`}
+                  bgColor="#f0f0f0"
+                  qrCodeSize={400}
+                  fileName={ser?.name}
                 />
 
                 <Button

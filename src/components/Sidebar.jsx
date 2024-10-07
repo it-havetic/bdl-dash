@@ -162,7 +162,7 @@ const Sidebar = () => {
               Greeting
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/services"
               className={({ isActive }) =>
@@ -173,7 +173,7 @@ const Sidebar = () => {
             >
               Services
             </NavLink>
-          </li>
+          </li> */}
 
           <li>
             <NavLink
