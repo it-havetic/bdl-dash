@@ -3,44 +3,22 @@ import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import axios from "../axios";
 
-export const ProductContext = createContext();
+export const ServicesContext = createContext();
 
-const ProductContextProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+const ServicesContextProvider = ({ children }) => {
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchProducts();
+    fetchAllServices();
   }, []);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get("/products");
-      if (response.status === 200) {
-        setProducts(response.data);
-      }
-    } catch (error) {
-      console.error(error.message);
-      notification.error({
-        message: error.response.data.message
-          ? error.response.data.message
-          : error.message,
-        duration: 2,
-      });
-    }
-  };
-
-  const createProduct = async (data, config) => {
+  const fetchAllServices = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("/products", data, config);
-      if (response.status === 201) {
-        setProducts([...products, response.data]);
-        fetchProducts();
-        notification.success({
-          duration: 2,
-          message: "Product created successfully!",
-        });
+      const response = await axios.get("/services");
+      if (response.status === 200) {
+        setServices(response.data);
       }
     } catch (error) {
       console.error(error.message);
@@ -55,16 +33,17 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const deleteProduct = async (id) => {
+  const createService = async (data, config) => {
+    setLoading(true);
     try {
-      const response = await axios.delete(`/products/${id}`);
-      if (response.status === 200) {
-        fetchProducts();
-        setProducts(products.filter((product) => product._id !== id));
+      const response = await axios.post("/services", data, config);
+      if (response.status === 201) {
         notification.success({
           duration: 2,
-          message: "Product deleted successfully!",
+          message: "Service created successfully!",
         });
+        fetchAllServices();
+        setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
@@ -74,18 +53,23 @@ const ProductContextProvider = ({ children }) => {
           : error.message,
         duration: 2,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const updateProduct = async (id, data) => {
+  //update service
+  const updateService = async (id, data, config) => {
+    setLoading(true);
     try {
-      const response = await axios.patch(`/products/${id}`, data);
+      const response = await axios.patch(`/services/${id}`, data, config);
       if (response.status === 200) {
-        fetchProducts();
         notification.success({
           duration: 2,
-          message: "Product updated successfully!",
+          message: "Service updated successfully!",
         });
+        fetchAllServices();
+        setLoading(false);
       }
     } catch (error) {
       console.error(error.message);
@@ -95,28 +79,54 @@ const ProductContextProvider = ({ children }) => {
           : error.message,
         duration: 2,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
+  //delete service
+  const deleteService = async (id) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(`/services/${id}`);
+      if (response.status === 200) {
+        notification.success({
+          duration: 2,
+          message: "Service deleted successfully!",
+        });
+        fetchAllServices();
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error.message);
+      notification.error({
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+        duration: 2,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <ProductContext.Provider
+    <ServicesContext.Provider
       value={{
-        products,
-        setProducts,
-        fetchProducts,
-        deleteProduct,
-        updateProduct,
-        createProduct,
+        services,
         loading,
+        fetchAllServices,
+        createService,
+        updateService,
+        deleteService,
       }}
     >
       {children}
-    </ProductContext.Provider>
+    </ServicesContext.Provider>
   );
 };
 
-export default ProductContextProvider;
+export default ServicesContextProvider;
 
-ProductContextProvider.propTypes = {
+ServicesContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

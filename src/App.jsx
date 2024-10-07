@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Products from "./pages/Products";
@@ -20,6 +19,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MockupZone from "./pages/MockupZone";
 import RecentWorks from "./pages/RecentWorks";
+import Services from "./pages/Services";
 import Specification from "./pages/Specification";
 import UserManagement from "./pages/UserManagement";
 
@@ -75,6 +75,14 @@ function App() {
               element={
                 <GreetingContextProvider>
                   <Greeting />
+                </GreetingContextProvider>
+              }
+            />
+            <Route
+              path="/services"
+              element={
+                <GreetingContextProvider>
+                  <Services />
                 </GreetingContextProvider>
               }
             />

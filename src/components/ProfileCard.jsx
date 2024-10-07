@@ -127,8 +127,8 @@ const ProfileCard = () => {
     if (values.article) formData.append("article", values.article);
     if (values.completedProjects)
       formData.append("completedProjects", values.completedProjects);
-    if (values.satisfiedClients)
-      formData.append("satisfiedClients", values.satisfiedClients);
+    if (values.satisfiedclients)
+      formData.append("satisfiedclients", values.satisfiedclients);
     if (values.underConstruction)
       formData.append("underConstruction", values.underConstruction);
     if (values.ongoingProjects)

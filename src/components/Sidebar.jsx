@@ -162,6 +162,18 @@ const Sidebar = () => {
               Greeting
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/services"
+              className={({ isActive }) =>
+                `block py-2.5 px-4 rounded transition duration-200 ${
+                  isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                }`
+              }
+            >
+              Services
+            </NavLink>
+          </li>
 
           <li>
             <NavLink
