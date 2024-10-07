@@ -639,22 +639,23 @@ const GroupSeriesSubSeriesPage = () => {
                     <Image
                       src={`${import.meta.env.VITE_URL}` + ser.image}
                       className="!w-14 !h-14 !rounded-full"
-                    ></Image>
+                    />
                   }
                   title={ser.name}
                   description={ser?.group?.name}
                 />
+
                 <QRCodeButton
-                  link={`https://bdluminariesweb.vercel.app/product/detail/one/${ser?.group._id}?series=${ser._id}`}
+                  key={ser._id}
+                  link={`https://bdluminariesweb.vercel.app/product/detail/one/${ser?.group?._id}?series=${ser._id}`}
+                  iconUrl={ser.iconUrl} // Optional: specify an icon if needed
                   bgColor="#f0f0f0"
-                  qrCodeSize={400}
-                  fileName={ser?.name}
+                  qrCodeSize={800}
+                  fileName={`${ser.name}QRCode`} // Unique filename for each series
                 />
 
                 <Button
-                  onClick={() => {
-                    handleSeriesEdit(ser);
-                  }}
+                  onClick={() => handleSeriesEdit(ser)}
                   type="link"
                   icon={<EditOutlined />}
                 >
@@ -662,9 +663,7 @@ const GroupSeriesSubSeriesPage = () => {
                 </Button>
                 <Popconfirm
                   title="Are you sure to delete this series?"
-                  onConfirm={() => {
-                    handleSeriesDelete(ser._id);
-                  }}
+                  onConfirm={() => handleSeriesDelete(ser._id)}
                   okText="Yes"
                   cancelText="No"
                 >
@@ -674,13 +673,6 @@ const GroupSeriesSubSeriesPage = () => {
                 </Popconfirm>
               </List.Item>
             )}
-          />
-          <Pagination
-            current={seriesPage}
-            pageSize={seriesPageSize}
-            total={filteredSeries.length}
-            onChange={(page) => setSeriesPage(page)}
-            className="mt-4"
           />
         </div>
 

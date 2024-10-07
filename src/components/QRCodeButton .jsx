@@ -1,5 +1,4 @@
-import { QrcodeOutlined } from "@ant-design/icons";
-import { Button, QRCode } from "antd";
+import { Button, QRCode, Segmented, Space } from "antd";
 import React, { useState } from "react";
 
 const QRCodeButton = ({
@@ -9,9 +8,18 @@ const QRCodeButton = ({
   qrCodeSize = 256, // Size of the QR code
   fileName = "QRCode", // File name for the download
 }) => {
-  const [isHovered, setIsHovered] = useState(false); // State to track hover
+  const [renderType, setRenderType] = useState("canvas"); // State to manage QR code type
 
-  // Function to download the SVG QR code
+  // Function to download canvas QR code as PNG
+  const downloadCanvasQRCode = () => {
+    const canvas = document.getElementById("myqrcode")?.querySelector("canvas");
+    if (canvas) {
+      const url = canvas.toDataURL();
+      doDownload(url, `${fileName}.png`);
+    }
+  };
+
+  // Function to download SVG QR code
   const downloadSvgQRCode = () => {
     const svg = document.getElementById("myqrcode")?.querySelector("svg");
     if (svg) {
@@ -33,47 +41,34 @@ const QRCodeButton = ({
   };
 
   return (
-    <div
-      id="myqrcode"
-      style={{ position: "relative", display: "inline-block" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Button that shows QR Code on hover */}
-      <Button
-        className="border-none color-blue"
-        icon={<QrcodeOutlined />}
-        onClick={downloadSvgQRCode}
-      >
-        QR Code
-      </Button>
+    <Space id="myqrcode" direction="vertical" align="center">
+      {/* Segmented control to toggle between canvas and SVG */}
+      <Segmented
+        options={["canvas", "svg"]}
+        onChange={(val) => setRenderType(val)}
+      />
 
-      {/* QR Code is displayed on hover */}
-      {isHovered && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-450px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            marginTop: 10,
-            padding: 10,
-            backgroundColor: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <QRCode
-            type="svg"
-            value={link}
-            size={qrCodeSize}
-            bgColor={bgColor}
-            icon={"/public/logo.jpeg"}
-          />
-        </div>
-      )}
-    </div>
+      {/* QR Code generation */}
+      <QRCode
+        className="hidden"
+        type={renderType}
+        value={link}
+        size={qrCodeSize}
+        bgColor={bgColor}
+        icon={iconUrl || undefined}
+        style={{ marginBottom: 16 }}
+      />
+
+      {/* Button to download QR code */}
+      <Button
+        type="primary"
+        onClick={
+          renderType === "canvas" ? downloadCanvasQRCode : downloadSvgQRCode
+        }
+      >
+         QR Code
+      </Button>
+    </Space>
   );
 };
 
