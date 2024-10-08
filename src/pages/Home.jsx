@@ -78,33 +78,27 @@ const Home = () => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
       <Row gutter={[16, 16]}>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic title="Groups" value={dashboardData.groupsCount} />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic title="Series" value={dashboardData.seriesCount} />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic title="Subseries" value={dashboardData.subseriesCount} />
           </Card>
         </Col>
-      </Row>
-
-      <Row gutter={[16, 16]} className="mt-4">
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
-            <Statistic
-              title="Products Upload"
-              value={dashboardData.productsCount}
-            />
+            <Statistic title="Products" value={dashboardData.productsCount} />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic
               title="Specifications"
@@ -112,78 +106,61 @@ const Home = () => {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
-            <Statistic
-              title="Mockup Zone"
-              value={dashboardData.mockupZoneCount}
-            />
+            <Statistic title="M-Zone" value={dashboardData.mockupZoneCount} />
           </Card>
         </Col>
-      </Row>
 
-      <Row gutter={[16, 16]} className="mt-4">
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
-            <Statistic
-              title="Recent Work"
-              value={dashboardData.recentWorkCount}
-            />
+            <Statistic title="R-Work" value={dashboardData.recentWorkCount} />
           </Card>
         </Col>
-        <Col span={8}>
-          <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
-            <Statistic title="Greeting" value={dashboardData.greetingCount} />
-          </Card>
-        </Col>
-        <Col span={8}>
+
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic title="Academy" value={dashboardData.academyCount} />
           </Card>
         </Col>
-      </Row>
-      <Row gutter={[16, 16]} className="mt-4">
-        <Col span={8}>
+
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic
-              title="Recent Work Images"
+              title="RW-Img.."
               value={dashboardData.recentWorkImageCount}
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic
-              title="Recent Work Videos"
+              title="RW-Vid.."
               value={dashboardData.recentWorkVideoCount}
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic
-              title="Mockup Zone Images"
+              title="MZ-Ima.."
               value={dashboardData.mockupZoneImageCount}
             />
           </Card>
         </Col>
-      </Row>
-
-      <Row gutter={[16, 16]} className="mt-4">
-        <Col span={8}>
+        <Col span={2}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <Statistic
-              title="Mockup Zone Videos"
+              title="MZ-Vid.."
               value={dashboardData.mockupZoneVideoCount}
             />
           </Card>
         </Col>
       </Row>
+      <Row gutter={[16, 16]} className="mt-4"></Row>
 
-      <Divider>Customar Contact</Divider>
-
-      <Row gutter={[16, 16]} className="mt-4">
-        <Col span={24}>
+      <Row gutter={16} className="mt-4">
+        <Col span={8}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <h3 className="font-semibold text-lg">Total Messages</h3>
             <Statistic
@@ -203,11 +180,7 @@ const Home = () => {
             />
           </Card>
         </Col>
-      </Row>
-      <Divider>User & Message Activity</Divider>
-
-      <Row gutter={16}>
-        <Col span={12}>
+        <Col span={8}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <h3 className="font-semibold text-lg">Active vs Inactive Users</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -225,7 +198,7 @@ const Home = () => {
             </ResponsiveContainer>
           </Card>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
           <Card className="shadow-md hover:shadow-lg transition duration-300 bg-white">
             <h3 className="font-semibold text-lg">Message Activity</h3>
             <ResponsiveContainer width="100%" height={300}>

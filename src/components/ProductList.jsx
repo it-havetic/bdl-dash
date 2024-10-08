@@ -51,7 +51,8 @@ const ProductList = () => {
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) ||
       product?.group?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product?.series?.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product?.series?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product?.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const fetchGroups = async () => {
     try {
@@ -215,7 +216,7 @@ const ProductList = () => {
       {/* Search Input */}
       <div className="mb-4 flex justify-end">
         <Input.Search
-          placeholder="Search by title, client or location"
+          placeholder="Search by group, series, or subseries, item code or description"
           value={searchTerm}
           onChange={handleSearch}
           style={{ width: 300 }}

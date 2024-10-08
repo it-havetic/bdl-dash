@@ -143,7 +143,7 @@ const RecentWorksList = () => {
 
       {/* Modal for View */}
       <Modal
-        title="View Mockup Zone"
+        title="View Recent Work"
         visible={isModalVisibleForView}
         onCancel={handleViewCancel}
         footer={null}
@@ -152,21 +152,36 @@ const RecentWorksList = () => {
       >
         <div>
           <p className="font-semibold text-xl mb-4">
-            Prioroty: {selectedRecentWork?.prioroty}
+            Prioroty:{" "}
+            <span className="text-green-500 text-2xl">
+              {selectedRecentWork?.prioroty}{" "}
+            </span>
           </p>
           <p className="font-semibold text-xl mb-4">
-            Project Name: {selectedRecentWork?.title}
+            Project Name:
+            <span className="text-green-500 text-2xl">
+              {selectedRecentWork?.title}
+            </span>
           </p>
           <p className="font-semibold text-xl mb-4">
-            Client: {selectedRecentWork?.client}
+            Client:
+            <span className="text-green-500 text-2xl">
+              {selectedRecentWork?.client}
+            </span>
           </p>
 
           <p className="font-semibold text-xl mb-4">
-            Location: {selectedRecentWork?.location}
+            Location:
+            <span className="text-green-500 text-2xl">
+              {selectedRecentWork?.location}
+            </span>
           </p>
 
           <p className="font-semibold text-xl mb-4">
-            Description: {selectedRecentWork?.description}
+            Description:
+            <span className="text-green-500 text-2xl">
+              {selectedRecentWork?.description}
+            </span>
           </p>
         </div>
 
