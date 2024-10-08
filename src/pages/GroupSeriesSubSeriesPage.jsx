@@ -646,7 +646,7 @@ const GroupSeriesSubSeriesPage = () => {
                 />
                 <QRCodeButton
                   key={ser._id}
-                  link={`https://bdluminariesweb.vercel.app/product/detail/one/${ser?.group?._id}?series=${ser._id}`}
+                  link={`https://bdluminaries.com/product/detail/one/${ser?.group?._id}?series=${ser._id}`}
                   iconUrl={ser.iconUrl} // Optional: specify an icon if needed
                   bgColor="#f0f0f0"
                   qrCodeSize={800}
