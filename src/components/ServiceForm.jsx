@@ -131,12 +131,12 @@ const ServiceForm = () => {
             align: "end",
             type: "inner",
           }}
-          size={[300, 20]}
+          size={[480, 20]}
         />
       )}
 
       {/* Submit Button */}
-      <Form.Item>
+      <Form.Item className="mt-3">
         <Button
           type="primary"
           htmlType="submit"
