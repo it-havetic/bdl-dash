@@ -44,6 +44,22 @@ const ProductList = () => {
     setSearchTerm(e.target.value);
   };
 
+  const highlightText = (text, searchTerm) => {
+    if (!text) return ""; // Handle undefined or null text
+    if (!searchTerm) return text; // If no search term is provided, return the original text
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    const parts = text.split(regex);
+    return parts.map((part, index) =>
+      part.toLowerCase() === searchTerm.toLowerCase() ? (
+        <span key={index} style={{ backgroundColor: "yellow" }}>
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
+  };
+
   const filteredProducts = products?.filter(
     (product) =>
       product?.itemCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -54,6 +70,7 @@ const ProductList = () => {
       product?.series?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product?.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   const fetchGroups = async () => {
     try {
       const response = await axios.get("/groups");
@@ -144,21 +161,25 @@ const ProductList = () => {
       title: "Item Code",
       dataIndex: "itemCode",
       key: "itemCode",
+      render: (text) => highlightText(text, searchTerm),
     },
     {
       title: "Sub Series",
       dataIndex: ["subSeries", "name"],
       key: "subSeries",
+      render: (text) => highlightText(text, searchTerm),
     },
     {
       title: "Series",
       dataIndex: ["series", "name"],
       key: "series",
+      render: (text) => highlightText(text, searchTerm),
     },
     {
       title: "Group",
       dataIndex: ["group", "name"],
       key: "group",
+      render: (text) => highlightText(text, searchTerm),
     },
     {
       title: "Price",
@@ -170,6 +191,7 @@ const ProductList = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      render: (text) => highlightText(text, searchTerm),
     },
     {
       title: "Image",
@@ -216,7 +238,7 @@ const ProductList = () => {
       {/* Search Input */}
       <div className="mb-4 flex justify-end">
         <Input.Search
-          placeholder="Search by group, series, or subseries, item code or description"
+          placeholder="Search by group, series, subseries, item code, or description"
           value={searchTerm}
           onChange={handleSearch}
           style={{ width: 300 }}

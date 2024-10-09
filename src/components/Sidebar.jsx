@@ -162,7 +162,7 @@ const Sidebar = () => {
               Greeting
             </NavLink>
           </li>
-          {/* <li>
+          <li>
             <NavLink
               to="/services"
               className={({ isActive }) =>
@@ -173,8 +173,7 @@ const Sidebar = () => {
             >
               Services
             </NavLink>
-          </li> */}
-
+          </li>
           <li>
             <NavLink
               to="/academy"
@@ -197,6 +196,18 @@ const Sidebar = () => {
               }
             >
               Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/customer"
+              className={({ isActive }) =>
+                `block py-2.5 px-4 rounded transition duration-200 ${
+                  isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                }`
+              }
+            >
+              Customers
             </NavLink>
           </li>
           <li>

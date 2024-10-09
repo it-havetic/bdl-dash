@@ -5,14 +5,17 @@ import Products from "./pages/Products";
 import AcademyContextProvider from "./context/AcademyContext";
 import AuthContextProvider from "./context/AuthContext";
 import CompanyProfileContextProvider from "./context/CompanyProfileContext";
+import { CustomerProvider } from "./context/CustomerContext";
 import { GreetingContextProvider } from "./context/GreetingContext";
 import MockupZoneContextProvider from "./context/MockupZoneContex";
 import ProductContextProvider from "./context/ProductContext";
 import { RecentWorksContextProvider } from "./context/RecentWorksContext";
+import ServicesContextProvider from "./context/ServicesContext";
 import SpecificationContextProvider from "./context/SpecificationContext";
 import Academy from "./pages/Academy";
 import CompanyProfile from "./pages/CompanyProfile";
 import Contacts from "./pages/Contacts";
+import Customers from "./pages/Customers";
 import Greeting from "./pages/Greeting";
 import GroupSeriesSubSeriesPage from "./pages/GroupSeriesSubSeriesPage";
 import Home from "./pages/Home";
@@ -81,9 +84,9 @@ function App() {
             <Route
               path="/services"
               element={
-                <GreetingContextProvider>
+                <ServicesContextProvider>
                   <Services />
-                </GreetingContextProvider>
+                </ServicesContextProvider>
               }
             />
             {/* <Route path="/testimonium" element={<Testimonium />} /> */}
@@ -103,6 +106,14 @@ function App() {
                 <CompanyProfileContextProvider>
                   <CompanyProfile />
                 </CompanyProfileContextProvider>
+              }
+            />
+            <Route
+              path="/customer"
+              element={
+                <CustomerProvider>
+                  <Customers />
+                </CustomerProvider>
               }
             />
           </Route>
