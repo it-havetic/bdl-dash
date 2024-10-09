@@ -182,6 +182,7 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
                   "Zone-14",
                   "Zone-15",
                   "Zone-16",
+                  "Zone-17",
                 ].map((zone) => (
                   <Select.Option key={zone} value={zone}>
                     {zone}

@@ -114,6 +114,7 @@ const MockupZoneForm = () => {
               "Zone-14",
               "Zone-15",
               "Zone-16",
+              "Zone-17",
             ].map((zone) => (
               <Option key={zone} value={zone}>
                 {zone}
