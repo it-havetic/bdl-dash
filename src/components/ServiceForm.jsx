@@ -1,6 +1,6 @@
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Progress, Upload, message } from "antd";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ServicesContext } from "../context/ServicesContext";
 
 const uploadButton = (

@@ -1,29 +1,30 @@
-import { Button, QRCode, Segmented, Space } from "antd";
-import React, { useState } from "react";
+import { Button, Segmented, Space } from "antd";
+import { useState, useRef } from "react";
+import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
 
 const QRCodeButton = ({
   link = "https://ant.design/", // The link for the QR code
-  iconUrl = "", // Optional icon inside the QR code
   bgColor = "#fff", // Background color of the QR code
   qrCodeSize = 256, // Size of the QR code
   fileName = "QRCode", // File name for the download
 }) => {
   const [renderType, setRenderType] = useState("canvas"); // State to manage QR code type
+  const canvasRef = useRef(); // Reference to the hidden canvas
 
   // Function to download canvas QR code as PNG
   const downloadCanvasQRCode = () => {
-    const canvas = document.getElementById("myqrcode")?.querySelector("canvas");
+    const canvas = canvasRef.current?.querySelector("canvas");
     if (canvas) {
-      const url = canvas.toDataURL();
+      const url = canvas.toDataURL("image/png");
       doDownload(url, `${fileName}.png`);
     }
   };
 
   // Function to download SVG QR code
   const downloadSvgQRCode = () => {
-    const svg = document.getElementById("myqrcode")?.querySelector("svg");
-    if (svg) {
-      const svgData = new XMLSerializer().serializeToString(svg);
+    const svgElement = document.getElementById("svgQRCode");
+    if (svgElement) {
+      const svgData = new XMLSerializer().serializeToString(svgElement);
       const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       doDownload(url, `${fileName}.svg`);
@@ -41,23 +42,31 @@ const QRCodeButton = ({
   };
 
   return (
-    <Space id="myqrcode" direction="vertical" align="center">
+    <Space direction="vertical" align="center">
       {/* Segmented control to toggle between canvas and SVG */}
       <Segmented
         options={["canvas", "svg"]}
         onChange={(val) => setRenderType(val)}
       />
 
-      {/* QR Code generation */}
-      <QRCode
-        className="hidden"
-        type={renderType}
-        value={link}
-        size={qrCodeSize}
-        bgColor={bgColor}
-        icon={iconUrl || undefined}
-        style={{ marginBottom: 16 }}
-      />
+      {/* Hidden QR Code for canvas download */}
+      {renderType === "canvas" && (
+        <div style={{ display: "none" }} ref={canvasRef}>
+          <QRCodeCanvas value={link} size={qrCodeSize} bgColor={bgColor} />
+        </div>
+      )}
+
+      {/* Hidden QR Code for SVG download */}
+      {renderType === "svg" && (
+        <div style={{ display: "none" }}>
+          <QRCodeSVG
+            id="svgQRCode"
+            value={link}
+            size={qrCodeSize}
+            bgColor={bgColor}
+          />
+        </div>
+      )}
 
       {/* Button to download QR code */}
       <Button
@@ -66,7 +75,7 @@ const QRCodeButton = ({
           renderType === "canvas" ? downloadCanvasQRCode : downloadSvgQRCode
         }
       >
-         QR Code
+        Download QR Code
       </Button>
     </Space>
   );

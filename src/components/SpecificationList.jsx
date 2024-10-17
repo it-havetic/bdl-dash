@@ -10,45 +10,41 @@ const SpecificationList = () => {
     useContext(SpecificationContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSpecification, setSelectedSpecification] = useState(null);
-  const [selectedSpecificationForEdit, setSelectedSpecificationForEdit] =
-    useState();
-  const [visible, setVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const handleView = (record) => {
     setSelectedSpecification(record);
     setVisible(true);
-    console.log(record);
   };
 
   const handleEdit = (record) => {
-    console.log(record);
-    setEditModalVisible(true);
     setSelectedSpecification(record);
+    setEditModalVisible(true);
   };
 
   const handleEditCancel = () => {
     setVisible(false);
     setEditModalVisible(false);
-    setSelectedSpecification();
+    setSelectedSpecification(null); // Reset selected specification after cancel
   };
 
   const handleDelete = (record) => {
-    console.log(record._id);
     deleteSpecification(record._id);
   };
 
   // Filtering logic based on search term
-  const filteredSpecifications = specifications?.filter((spec) => {
-    const { group, series, subSeries, priority } = spec;
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    return (
-      group.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      series.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      subSeries.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      priority.toString().toLowerCase().includes(lowerCaseSearchTerm)
-    );
-  });
+const filteredSpecifications = specifications?.filter((spec) => {
+  const { group, series, subSeries, priority } = spec;
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+  return (
+    group?.name?.toLowerCase().includes(lowerCaseSearchTerm) || // Safely check group.name
+    series?.name?.toLowerCase().includes(lowerCaseSearchTerm) || // Safely check series.name
+    subSeries?.name?.toLowerCase().includes(lowerCaseSearchTerm) || // Safely check subSeries.name
+    (priority &&
+      priority.toString().toLowerCase().includes(lowerCaseSearchTerm)) // Ensure priority exists
+  );
+});
 
   const columns = [
     {
@@ -69,12 +65,6 @@ const SpecificationList = () => {
       key: "subSeries",
       render: (name) => <p className="font-bold text-lg">{name}</p>,
     },
-    // {
-    //   title: "Priority",
-    //   dataIndex: "priority",
-    //   key: "priority",
-    //   render: (name) => <p className="font-bold text-lg">{name}</p>,
-    // },
     {
       title: "Diagram",
       dataIndex: "image",
@@ -124,7 +114,7 @@ const SpecificationList = () => {
             Edit
           </Button>
           <Popconfirm
-            title={`Are you sure you want to delete ${record.name}?`}
+            title={`Are you sure you want to delete ${record.group.name}?`} // Adjust field
             onConfirm={() => handleDelete(record)}
             okText="Yes"
             cancelText="No"
@@ -167,7 +157,7 @@ const SpecificationList = () => {
       <Modal
         title="Edit Specification"
         visible={editModalVisible}
-        onCancel={() => handleEditCancel()}
+        onCancel={handleEditCancel}
         footer={null}
         width={"80%"}
         style={{ top: 20 }}

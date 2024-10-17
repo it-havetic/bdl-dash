@@ -5,6 +5,7 @@ import {
   Input,
   InputNumber,
   Modal,
+  notification,
   Popconfirm,
   Select,
   Space,
@@ -22,6 +23,7 @@ const CustomerList = () => {
   const [filteredData, setFilteredData] = useState(customer); // Initialize with customer data
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selected, setSelected] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -29,6 +31,11 @@ const CustomerList = () => {
   useEffect(() => {
     setFilteredData(customer); // Set all customers initially
   }, [customer]);
+
+  // Update form values dynamically when selected changes
+  useEffect(() => {
+    form.setFieldsValue(selected);
+  }, [selected, form]);
 
   // Handle search
   const handleSearch = (e) => {
@@ -52,7 +59,17 @@ const CustomerList = () => {
   };
 
   const handleDelete = async (customer) => {
-    await deleteCustomer(customer._id);
+    setLoading(true);
+    try {
+      await deleteCustomer(customer._id);
+    } catch (error) {
+      notification.error({
+        message: "Failed to delete customer!",
+        duration: 2,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onEdit = (customer) => {
@@ -61,12 +78,29 @@ const CustomerList = () => {
   };
 
   const onFinish = async (values) => {
-    await updateCustomer(selected._id, values);
-    setIsModalVisible(false);
+    setLoading(true);
+    try {
+      await updateCustomer(selected._id, values);
+      notification.success({
+        message: "Customer updated successfully!",
+        duration: 2,
+      });
+    } catch (error) {
+      notification.error({
+        message: error.response?.data.message || error.message,
+        duration: 2,
+      });
+    } finally {
+      form.resetFields();
+      setSelected({});
+      setIsModalVisible(false);
+      setLoading(false);
+    }
   };
 
   const onCancel = () => {
     setIsModalVisible(false);
+    setSelected({});
   };
 
   const columns = [
@@ -150,13 +184,15 @@ const CustomerList = () => {
       {/* Customer Table */}
       <Table
         columns={columns}
-        dataSource={filteredData} // Use filtered data for the table
+        dataSource={filteredData?.length ? filteredData : []}
         rowKey="_id"
+        loading={loading}
+        locale={{ emptyText: "No customers found" }}
       />
 
       <Modal
         title="Edit Customer"
-        visible={isModalVisible}
+        open={isModalVisible} // Updated from 'visible'
         maskClosable={false}
         footer={null}
         width={"600px"}
@@ -259,8 +295,8 @@ const CustomerList = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Create Customer
+            <Button type="primary" htmlType="submit" loading={loading}>
+              Update Customer
             </Button>
           </Form.Item>
         </Form>

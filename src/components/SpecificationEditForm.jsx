@@ -74,6 +74,11 @@ const SpecificationEditForm = ({ specification, handleEditCancel }) => {
     fetchGroups();
   }, []);
 
+  // Update form values dynamically when selected changes
+  useEffect(() => {
+    form.setFieldsValue(specification);
+  }, [specification, form]);
+
   const fetchGroups = async () => {
     try {
       const response = await axios.get("/groups");
