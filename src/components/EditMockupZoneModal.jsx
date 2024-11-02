@@ -72,11 +72,13 @@ const EditMockupZoneModal = ({ visible, onCancel, mockupZone }) => {
    * @async
    */
   const handleUpdate = async () => {
-    const { name, prioroty } = form.getFieldsValue();
+    const { name, prioroty, status } = form.getFieldsValue();
     // console.log(handleUpdate);
     const formData = new FormData();
     formData.append("name", name);
     if (prioroty) formData.append("prioroty", prioroty);
+
+    if (status) formData.append("status", status);
 
     // Append files to delete
     imagesToDelete.forEach((image) =>
